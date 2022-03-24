@@ -9,11 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SiIngat">
-        <activity
-            android:name=".MenuAkun"
-            android:exported="false" />
+
         <!-- <activity android:name=".LoginActivity"></activity> -->
-        <activity android:name=".LoginActivity">
+        <activity android:name=".MenuAkun">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

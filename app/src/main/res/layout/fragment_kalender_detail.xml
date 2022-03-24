@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".kalender_detail">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/grey_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grey_frame"
+        android:padding="91dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/today" />
+
+    <TextView
+        android:id="@+id/today"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Today"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/horizontal_scroll1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.027" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tuesday, 01 March"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/grey_frame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/grey_frame"
+        app:layout_constraintVertical_bias="0.225" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontal_scroll1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/date"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.129">
+
+        <LinearLayout
+            android:id="@+id/linear_horizontal1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:id="@+id/horidum_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/field_text_blue"
+                android:padding="40dp" />
+
+            <ImageView
+                android:id="@+id/horidum_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/grey_schedule"
+                android:padding="40dp" />
+
+            <ImageView
+                android:id="@+id/horidum_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/grey_schedule"
+                android:padding="40dp" />
+
+            <ImageView
+                android:id="@+id/horidum_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/grey_schedule"
+                android:padding="40dp" />
+
+            <ImageView
+                android:id="@+id/horidum_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/grey_schedule"
+                android:padding="40dp" />
+
+            <ImageView
+                android:id="@+id/horidum_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/grey_schedule"
+                android:padding="40dp" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/today_schedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Today's Schedule"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grey_frame"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="225dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grey_frame"
+        app:layout_constraintVertical_bias="0.2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/today_schedule_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/schedule_frame"
+                android:padding="45dp"
+                android:layout_marginBottom="20dp"/>
+
+
+            <ImageView
+                android:id="@+id/today_schedule_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="45dp"
+                android:background="@drawable/schedule_frame"
+                android:textColor="@color/white"
+                android:layout_marginBottom="20dp"/>
+
+            <ImageView
+                android:id="@+id/today_schedule_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="45dp"
+                android:background="@drawable/schedule_frame"
+                android:textColor="@color/white"
+                android:layout_marginBottom="20dp"/>
+
+            <ImageView
+                android:id="@+id/today_schedule_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="45dp"
+                android:background="@drawable/schedule_frame"
+                android:textColor="@color/white"
+                android:layout_marginBottom="20dp"/>
+
+
+    </LinearLayout>
+
+</ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

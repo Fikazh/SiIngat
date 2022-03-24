@@ -9,8 +9,12 @@
         <entry key="..\:/Kuliah/PraktikumMobileProgramming/SiIngat/app/src/main/res/drawable/field_text.xml" value="0.127" />
         <entry key="..\:/Kuliah/PraktikumMobileProgramming/SiIngat/app/src/main/res/drawable/field_text_blue.xml" value="0.127" />
         <entry key="..\:/Kuliah/PraktikumMobileProgramming/SiIngat/app/src/main/res/drawable/foto_frame.xml" value="0.127" />
+        <entry key="..\:/Kuliah/PraktikumMobileProgramming/SiIngat/app/src/main/res/drawable/grey_frame.xml" value="0.127" />
+        <entry key="..\:/Kuliah/PraktikumMobileProgramming/SiIngat/app/src/main/res/drawable/grey_schedule.xml" value="0.127" />
+        <entry key="..\:/Kuliah/PraktikumMobileProgramming/SiIngat/app/src/main/res/drawable/schedule_frame.xml" value="0.127" />
         <entry key="..\:/Kuliah/PraktikumMobileProgramming/SiIngat/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Kuliah/PraktikumMobileProgramming/SiIngat/app/src/main/res/layout/activity_menu_akun.xml" value="0.22" />
+        <entry key="..\:/Kuliah/PraktikumMobileProgramming/SiIngat/app/src/main/res/layout/fragment_kalender_detail.xml" value="0.22" />
       </map>
     </option>
   </component>

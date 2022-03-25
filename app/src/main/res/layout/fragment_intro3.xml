@@ -7,7 +7,16 @@
     tools:context=".Intro1Fragment">
 
     <ImageView
-        android:id="@+id/iv_intro2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/rect_white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iv_intro3"
         android:layout_width="495dp"
         android:layout_height="641dp"
         android:layout_marginBottom="180dp"
@@ -17,14 +26,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cons_intro2"
+        android:id="@+id/cons_intro3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rect_rad30_white"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_intro2"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_intro3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_intro2"
+        app:layout_constraintTop_toBottomOf="@+id/iv_intro3"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:elevation="8dp">
@@ -35,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="Alarm?"
             android:textColor="@color/blue_fb"
-            android:textSize="24dp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +57,7 @@
             android:gravity="center"
             android:text="Sure, hope it’s loud enough."
             android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_intro3_title"
@@ -63,14 +72,14 @@
             android:minHeight="0dp"
             android:text="NEXT"
             android:textColor="@color/white"
-            android:textSize="28dp"
+            android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_intro3_desc"
             android:layout_marginTop="8dp"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cons_intro1_circles"
+            android:id="@+id/cons_intro3_circles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +88,7 @@
             android:layout_marginTop="32dp">
 
             <ImageView
-                android:id="@+id/img_intro1_circle1"
+                android:id="@+id/img_intro3_circle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/circle_blue_empty"
@@ -88,19 +97,19 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/img_intro1_circle2"
+                android:id="@+id/img_intro3_circle2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:src="@drawable/circle_blue_empty"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/img_intro1_circle3"
-                app:layout_constraintStart_toEndOf="@id/img_intro1_circle1"
+                app:layout_constraintEnd_toStartOf="@id/img_intro3_circle3"
+                app:layout_constraintStart_toEndOf="@id/img_intro3_circle1"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/img_intro1_circle3"
+                android:id="@+id/img_intro3_circle3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/circle_blue_fill"

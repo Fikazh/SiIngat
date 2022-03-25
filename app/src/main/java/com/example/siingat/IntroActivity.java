@@ -16,7 +16,7 @@ public class IntroActivity extends AppCompatActivity {
 
         FragmentManager mFragmentManager = getSupportFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-        Intro1Fragment mIntro1Fragment = new Intro1Fragment;
+        Intro1Fragment mIntro1Fragment = new Intro1Fragment();
         mFragmentTransaction.add(R.id.intro_frame_container, mIntro1Fragment, Intro1Fragment.class.getSimpleName());
         Log.d("MyFlexibleFragment", "Fragment Name :"+Intro1Fragment.class.getSimpleName());
         mFragmentTransaction.commit();

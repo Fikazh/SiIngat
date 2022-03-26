@@ -1,10 +1,16 @@
 package com.example.siingat;
 
+import android.animation.LayoutTransition;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +22,10 @@ import android.widget.ImageView;
  * Use the {@link Home#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Home extends Fragment {
+public class Home extends Fragment implements View.OnClickListener {
 
-    LinearLayoutCompat event, daily;
+    CardView event, daily;
+    LinearLayoutCompat eventDetails, dailyDetails;
     ConstraintLayout eventLayout, dailyLayout;
     ImageView eventDown, dailyDown;
 
@@ -66,6 +73,55 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        daily = view.findViewById(R.id.daily);
+        daily.setOnClickListener(this);
+        dailyDetails = view.findViewById(R.id.daily_details);
+        dailyLayout = view.findViewById(R.id.clDaily);
+        dailyDown = view.findViewById(R.id.daily_down);
+        dailyLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+
+        event = view.findViewById(R.id.event);
+        event.setOnClickListener(this);
+        eventDetails = view.findViewById(R.id.event_details);
+        eventLayout = view.findViewById(R.id.clEvent);
+        eventDown = view.findViewById(R.id.event_down);
+        eventLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+
+        return view;
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        int v;
+        switch (view.getId()) {
+            case R.id.daily:
+                v = (dailyDetails.getVisibility() == View.GONE)? View.VISIBLE : View.GONE;
+
+                TransitionManager.beginDelayedTransition(dailyLayout, new AutoTransition());
+                dailyDetails.setVisibility(v);
+
+                if (dailyDetails.getVisibility() == View.VISIBLE){
+                    dailyDown.setVisibility(View.GONE);
+                }
+                else
+                    dailyDown.setVisibility(View.VISIBLE);
+                break;
+
+            case R.id.event:
+                v = (eventDetails.getVisibility() == View.GONE)? View.VISIBLE : View.GONE;
+
+                TransitionManager.beginDelayedTransition(eventLayout, new AutoTransition());
+                eventDetails.setVisibility(v);
+
+                if (eventDetails.getVisibility() == View.VISIBLE){
+                    eventDown.setVisibility(View.GONE);
+                }
+                else
+                    eventDown.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 }

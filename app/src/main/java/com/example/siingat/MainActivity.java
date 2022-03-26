@@ -24,9 +24,6 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     TextView date;
-    LinearLayoutCompat event, daily;
-    ConstraintLayout eventLayout, dailyLayout;
-    ImageView eventDown, dailyDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -9,9 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SiIngat">
-        <activity
-            android:name=".IntroActivity"
-            android:exported="false" />
+      <activityandroid:name=".IntroActivity"></activity>
+        <activity android:name=".SignupActivity"></activity>
         <!-- <activity android:name=".LoginActivity"></activity> -->
         <activity android:name=".LoginActivity">
             <intent-filter>

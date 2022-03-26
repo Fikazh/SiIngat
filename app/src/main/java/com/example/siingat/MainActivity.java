@@ -1,11 +1,18 @@
 package com.example.siingat;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
 
+import android.animation.LayoutTransition;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -17,6 +24,9 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     TextView date;
+    LinearLayoutCompat event, daily;
+    ConstraintLayout eventLayout, dailyLayout;
+    ImageView eventDown, dailyDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

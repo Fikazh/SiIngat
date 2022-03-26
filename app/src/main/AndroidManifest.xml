@@ -9,14 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SiIngat">
-<<<<<<< HEAD
-<!--        <activity android:name=".LoginActivity"></activity>-->
-        <activity android:name=".MainActivity">
-=======
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".SignupActivity"></activity>
-        <!-- <activity android:name=".LoginActivity"></activity> -->
-        <activity android:name=".LoginActivity">
->>>>>>> da6c06107fec7f531f4d5a166a5a93532dd1e10f
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

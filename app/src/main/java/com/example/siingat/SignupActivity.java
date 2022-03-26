@@ -3,6 +3,7 @@ package com.example.siingat;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +16,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button btnUnfocus;
+    private Button btnUnfocus, btnNext;
     private EditText etBirth;
     final Calendar myCalendar = Calendar.getInstance();
     private Button[] btnGender = new Button[3];
@@ -50,6 +51,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
+        btnNext = (Button) findViewById(R.id.btn_next);
+        btnNext.setOnClickListener(this);
     }
 
     private void updateLabel(){
@@ -71,6 +74,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.btn_other_gender :
                 setFocus(btnUnfocus, btnGender[2]);
+                break;
+            case R.id.btn_next :
+                Intent introIntent = new Intent(SignupActivity.this, IntroActivity.class);
+                startActivity(introIntent);
                 break;
         }
     }

@@ -3,22 +3,17 @@ package com.example.siingat;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Calendar#newInstance} factory method to
+ * Use the {@link kalender_detail#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Calendar extends Fragment implements View.OnClickListener {
+public class kalender_detail extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +24,7 @@ public class Calendar extends Fragment implements View.OnClickListener {
     private String mParam1;
     private String mParam2;
 
-    public Calendar() {
+    public kalender_detail() {
         // Required empty public constructor
     }
 
@@ -39,11 +34,11 @@ public class Calendar extends Fragment implements View.OnClickListener {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Calendar.
+     * @return A new instance of fragment kalender_detail.
      */
     // TODO: Rename and change types and number of parameters
-    public static Calendar newInstance(String param1, String param2) {
-        Calendar fragment = new Calendar();
+    public static kalender_detail newInstance(String param1, String param2) {
+        kalender_detail fragment = new kalender_detail();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,16 +59,6 @@ public class Calendar extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
-
-        Button kalender_detail = view.findViewById(R.id.go_to_kalender_detail);
-        kalender_detail.setOnClickListener(this);
-
-        return view;
-    }
-
-    @Override
-    public void onClick(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_calendar_to_kalender_detail);
+        return inflater.inflate(R.layout.fragment_kalender_detail, container, false);
     }
 }

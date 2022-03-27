@@ -76,7 +76,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 setFocus(btnUnfocus, btnGender[2]);
                 break;
             case R.id.btn_next :
-                Intent introIntent = new Intent(SignupActivity.this, IntroActivity.class);
+                Intent introIntent = new Intent(SignupActivity.this, HomeActivity.class);
                 startActivity(introIntent);
                 break;
         }

@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +28,7 @@ public class Intro3Fragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_intro3){
-            Intent homeIntent = new Intent(getActivity(),HomeActivity.class);
+            Intent homeIntent = new Intent(getActivity(), MainActivity.class);
             startActivity(homeIntent);
         }
     }

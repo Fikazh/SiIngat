@@ -3,8 +3,6 @@ package com.example.siingat;
 import android.animation.LayoutTransition;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,10 +17,10 @@ import android.widget.ImageView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Home#newInstance} factory method to
+ * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Home extends Fragment implements View.OnClickListener {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     CardView event, daily;
     LinearLayoutCompat eventDetails, dailyDetails;
@@ -38,7 +36,7 @@ public class Home extends Fragment implements View.OnClickListener {
     private String mParam1;
     private String mParam2;
 
-    public Home() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
@@ -51,8 +49,8 @@ public class Home extends Fragment implements View.OnClickListener {
      * @return A new instance of fragment Home.
      */
     // TODO: Rename and change types and number of parameters
-    public static Home newInstance(String param1, String param2) {
-        Home fragment = new Home();
+    public static HomeFragment newInstance(String param1, String param2) {
+        HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

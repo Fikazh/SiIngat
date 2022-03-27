@@ -36,6 +36,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.4.1'
     implementation 'androidx.navigation:navigation-ui:2.4.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.fragment:fragment:1.4.1"
 
     //CircularImageView
     implementation 'de.hdodenhof:circleimageview:3.1.0'

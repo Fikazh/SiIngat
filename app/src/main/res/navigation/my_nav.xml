@@ -6,12 +6,12 @@
     app:startDestination="@id/home">
     <fragment
         android:id="@+id/home"
-        android:name="com.example.siingat.Home"
+        android:name="com.example.siingat.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/calendar"
-        android:name="com.example.siingat.Calendar"
+        android:name="com.example.siingat.CalendarFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar" >
         <action

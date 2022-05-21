@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".WeekViewActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,6 @@
         android:layout_marginTop="20dp">
 
         <Button
-            android:id="@+id/previousMonthAction"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -24,6 +23,7 @@
             android:textColor="#407BFF"
             android:background="?android:attr/selectableItemBackground"
             android:textStyle="bold"
+            android:onClick="previousWeekAction"
             android:textSize="20sp"/>
 
         <TextView
@@ -37,7 +37,6 @@
             android:textColor="@color/black"/>
 
         <Button
-            android:id="@+id/nextMonthAction"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -45,6 +44,7 @@
             android:textColor="#407BFF"
             android:background="?android:attr/selectableItemBackground"
             android:textStyle="bold"
+            android:onClick="nextWeekAction"
             android:textSize="20sp"/>
 
     </LinearLayout>
@@ -124,6 +124,33 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendarRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <ListView
+        android:id="@+id/eventListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EditEventTest"
+        android:onClick="newEventAction"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+

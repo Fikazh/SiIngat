@@ -73,7 +73,7 @@ public class EventEditActivity extends AppCompatActivity
                 hour = selectedHour;
                 minute = selectedMinute;
 
-                time = hour + ":" + minute;
+                time = String.format("%02d:%02d", hour, minute);
                 LocalTime localTime = LocalTime.parse(time);
                 eventTimeET.setText(CalendarUtils.formattedTime(localTime));
             }

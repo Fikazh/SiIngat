@@ -3,31 +3,34 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Kuliah/PraktikumMobileProgramming/SiIngat/app/src/main/res/layout/activity_login.xml" value="0.1" />
-        <entry key="..\:/Kuliah/PraktikumMobileProgramming/SiIngat/app/src/main/res/layout/activity_menu_akun.xml" value="0.1" />
-        <entry key="..\:/Kuliah/PraktikumMobileProgramming/SiIngat/app/src/main/res/layout/fragment_calendar.xml" value="0.14130434782608695" />
-        <entry key="..\:/Users/ACER/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_home.xml" value="0.25" />
-        <entry key="..\:/Users/ACER/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_menu_akun.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/ACER/AndroidStudioProjects/SiIngat/app/src/main/res/layout/fragment_calendar.xml" value="0.16168478260869565" />
-        <entry key="..\:/Users/ACER/AndroidStudioProjects/SiIngat/app/src/main/res/layout/fragment_home.xml" value="0.17572463768115942" />
-        <entry key="..\:/Users/ACER/AndroidStudioProjects/SiIngat/app/src/main/res/layout/fragment_kalender_awal.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/ACER/AndroidStudioProjects/SiIngat/app/src/main/res/layout/fragment_kalender_detail.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/ACER/AndroidStudioProjects/SiIngat/app/src/main/res/menu/bottom_nav_menu.xml" value="0.22" />
-        <entry key="..\:/android stuff/SiIngat/app/src/main/res/drawable/btn_del_act.xml" value="0.1005" />
-        <entry key="..\:/android stuff/SiIngat/app/src/main/res/drawable/gradient_background.xml" value="0.1205" />
-        <entry key="..\:/android stuff/SiIngat/app/src/main/res/drawable/ic_add_circle.xml" value="0.105" />
-        <entry key="..\:/android stuff/SiIngat/app/src/main/res/drawable/rect_rad30_white.xml" value="0.4036458333333333" />
-        <entry key="..\:/android stuff/SiIngat/app/src/main/res/drawable/rect_rad50_bluegrad.xml" value="0.4036458333333333" />
-        <entry key="..\:/android stuff/SiIngat/app/src/main/res/drawable/rect_white.xml" value="0.4036458333333333" />
-        <entry key="..\:/android stuff/SiIngat/app/src/main/res/layout/activity_intro.xml" value="0.28894927536231885" />
-        <entry key="..\:/android stuff/SiIngat/app/src/main/res/layout/activity_login.xml" value="0.22" />
-        <entry key="..\:/android stuff/SiIngat/app/src/main/res/layout/activity_main.xml" value="0.29528985507246375" />
-        <entry key="..\:/android stuff/SiIngat/app/src/main/res/layout/fragment_calendar.xml" value="0.12" />
-        <entry key="..\:/android stuff/SiIngat/app/src/main/res/layout/fragment_home.xml" value="0.22" />
-        <entry key="..\:/android stuff/SiIngat/app/src/main/res/layout/fragment_intro1.xml" value="0.33" />
-        <entry key="..\:/android stuff/SiIngat/app/src/main/res/layout/fragment_intro2.xml" value="0.3875" />
-        <entry key="..\:/android stuff/SiIngat/app/src/main/res/layout/fragment_intro3.xml" value="0.3875" />
-        <entry key="..\:/android stuff/SiIngat/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
+        <entry key="..\:/Kuliah/PraktikumMobileProgramming/SiIngat/app/src/main/res/layout/calendar_cell.xml" value="0.1" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/drawable/btn_del_act.xml" value="0.1005" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/drawable/circle_shape.xml" value="0.1" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/drawable/field_text.xml" value="0.1" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/drawable/gradient_background.xml" value="0.1205" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/drawable/ic_add_circle.xml" value="0.105" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/drawable/rect_rad30_white.xml" value="0.1035" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/drawable/rect_rad50_bluegrad.xml" value="0.1035" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/drawable/splash_gradient_background.xml" value="0.1" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_event_edit.xml" value="0.17028985507246377" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_home.xml" value="0.15760869565217392" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_intro.xml" value="0.1" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_menu_akun.xml" value="0.15760869565217392" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_signup.xml" value="0.25" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_splash_screen.xml" value="0.25" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_week_view.xml" value="0.17028985507246377" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/calendar_cell.xml" value="0.1" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/event_cell.xml" value="0.1" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/fab_dialog.xml" value="0.2" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/fragment_calendar.xml" value="0.1" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/fragment_calendar_detail.xml" value="0.15760869565217392" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/fragment_intro1.xml" value="0.1" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/fragment_kalender_awal.xml" value="0.25" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/fragment_kalender_detail.xml" value="0.22" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
       </map>
     </option>
   </component>

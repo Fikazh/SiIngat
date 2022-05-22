@@ -13,5 +13,14 @@
         android:id="@+id/calendar"
         android:name="com.example.siingat.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar" >
+        <action
+            android:id="@+id/action_calendar_to_kalender_detail"
+            app:destination="@id/kalender_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/kalender_detail"
+        android:name="com.example.siingat.kalender_detail"
+        android:label="fragment_kalender_detail"
+        tools:layout="@layout/fragment_kalender_detail" />
 </navigation>

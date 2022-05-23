@@ -85,6 +85,10 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
         super.onViewCreated(view, savedInstanceState);
 
         initWidgets();
+
+        previousMonthAction.setOnClickListener(this);
+        nextMonthAction.setOnClickListener(this);
+
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
     }

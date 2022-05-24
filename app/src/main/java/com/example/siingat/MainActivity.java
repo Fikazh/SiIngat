@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         addPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //showDialog function goes here
                 showDialog();
             }
         });
@@ -64,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
 
         Button addDaily = dialog.findViewById(R.id.fabDaily);
         Button addEvent = dialog.findViewById(R.id.fabEvent);
+
+        WindowManager.LayoutParams wmlp = dialog.getWindow().getAttributes();
+
+        wmlp.gravity = Gravity.BOTTOM;
+        wmlp.y = 250;
 
         dialog.show();
 

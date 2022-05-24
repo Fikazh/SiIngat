@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,6 +23,8 @@ public class EventEditActivity extends AppCompatActivity
 {
     private EditText eventDescET;
     private TextView eventDateET, eventTimeET;
+    private CheckBox priorityCheck;
+    boolean isPriority;
 
     final Calendar myCalendar = Calendar.getInstance();
     int hour, minute;
@@ -58,6 +61,7 @@ public class EventEditActivity extends AppCompatActivity
         eventDescET = findViewById(R.id.eventDescET);
         eventDateET = findViewById(R.id.eventDateET);
         eventTimeET = findViewById(R.id.eventTimeET);
+        priorityCheck = findViewById(R.id.priorityCB);
     }
 
     private void updateLabel(){
@@ -83,6 +87,17 @@ public class EventEditActivity extends AppCompatActivity
         timePickerDialog.show();
     }
 
+    public void onCheckboxClicked(View view) {
+        if (priorityCheck.isChecked()){
+            priorityCheck.setText("Prioritized");
+            isPriority = true;
+        }
+        else {
+            priorityCheck.setText("Set as priority?");
+            isPriority = false;
+        }
+    }
+
     public void saveEventAction(View view)
     {
         String eventName = eventDescET.getText().toString();
@@ -94,6 +109,10 @@ public class EventEditActivity extends AppCompatActivity
 
         Event newEvent = new Event(eventName, eventDate, eventTime);
         Event.eventsList.add(newEvent);
+        finish();
+    }
+
+    public void backAction(View view) {
         finish();
     }
 }

@@ -17,6 +17,12 @@
         android:textAlignment="center"
         android:textColor="@color/black"/>
 
+    <View
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:background="#407BFF"/>
+
     <com.google.android.material.chip.ChipGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,7 +74,8 @@
         android:hint="Description"
         android:textSize="20sp"
         android:ems="10"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:backgroundTint="#407BFF"/>
 
     <EditText
         android:id="@+id/eventDateET"
@@ -80,7 +87,8 @@
         android:textSize="20sp"
         android:ems="10"
         android:clickable="false"
-        android:focusable="false"/>
+        android:focusable="false"
+        android:backgroundTint="#407BFF"/>
 
     <EditText
         android:id="@+id/eventTimeET"
@@ -93,7 +101,20 @@
         android:ems="10"
         android:clickable="false"
         android:focusable="false"
-        android:onClick="timePicker"/>
+        android:onClick="timePicker"
+        android:backgroundTint="#407BFF"/>
+
+    <CheckBox
+        android:id="@+id/priorityCB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Set as priority?"
+        android:textColor="#407BFF"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:onClick="onCheckboxClicked"
+        android:buttonTint="#407BFF"/>
 
     <Button
         android:layout_marginTop="20dp"
@@ -101,9 +122,24 @@
         android:layout_height="wrap_content"
         android:text="Save"
         android:textColor="#407BFF"
-        android:background="?android:attr/selectableItemBackground"
+        android:background="@drawable/rect_rad30_transparent"
+        app:backgroundTint="@null"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:textStyle="bold"
         android:onClick="saveEventAction"
+        android:layout_gravity="center"
+        android:textSize="20sp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:textColor="#407BFF"
+        android:background="@drawable/rect_rad30_transparent"
+        app:backgroundTint="@null"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:textStyle="bold"
+        android:onClick="backAction"
         android:layout_gravity="center"
         android:textSize="20sp"/>
 

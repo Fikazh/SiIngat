@@ -11,36 +11,37 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:translationY="-60dp"
         android:minWidth="600dp"
         android:minHeight="600dp"
         android:src="@drawable/signin_img"
+        android:translationY="-60dp"
         tools:ignore="MissingConstraints" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blue_pr_25"
-        />
+        android:background="@color/blue_pr_25" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/signin_down_content"
         android:layout_width="match_parent"
         android:layout_height="380dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/white">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/tv_first_signin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign In"
-            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="36sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/tv_second_signin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tv_second_signin"
@@ -50,55 +51,30 @@
             android:text="Please login to continue"
             android:textColor="@color/gray_64"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/cv_signin_gl"
+            app:layout_constraintBottom_toTopOf="@id/btn_sign_google"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_signin_gl"
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btn_sign_google"
             android:layout_width="270dp"
             android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginBottom="30dp"
-            android:elevation="20dp"
-            app:cardCornerRadius="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/cv_signin_fb"
+            app:layout_constraintBottom_toTopOf="@id/btn_sign_facebook"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-                <Button
-                    android:id="@+id/btn_gl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Sign In with Google"
-                    android:textStyle="bold"
-                    android:background="?attr/selectableItemBackground"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:drawableLeft="@drawable/gl_icon"
-                    />
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_signin_fb"
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btn_sign_facebook"
             android:layout_width="270dp"
             android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="40dp"
-            android:elevation="20dp"
-            android:backgroundTint="@color/blue_fb"
-            app:cardCornerRadius="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_copyright"
+            app:layout_constraintBottom_toTopOf="@id/tv_copyright"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-                <Button
-                    android:id="@+id/btn_fb"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Sign in with facebook"
-                    android:background="?attr/selectableItemBackground"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:drawableLeft="@drawable/fb_icon"/>
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tv_copyright"
@@ -114,9 +90,9 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ppl_icon"
         android:layout_marginBottom="-60dp"
+        android:src="@drawable/ppl_icon"
         app:layout_constraintBottom_toTopOf="@+id/signin_down_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

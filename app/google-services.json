@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "570477982915",
+    "project_id": "siingat",
+    "storage_bucket": "siingat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570477982915:android:50c8e84322830a72d91e76",
+        "android_client_info": {
+          "package_name": "com.example.siingat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "570477982915-q950mdhdssfao9muie0ga3vh5307nl06.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTOYxlrfF0rCirGUBtnNKPNTY6ZTa_vkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "570477982915-q950mdhdssfao9muie0ga3vh5307nl06.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

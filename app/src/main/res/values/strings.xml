@@ -4,4 +4,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="back"><![CDATA[<-]]></string>
     <string name="forward"><![CDATA[->]]></string>
+
+    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
+    <string name="facebook_app_id">378401791001746</string>
+    <string name="facebook_client_token">aa94810e265efdd13108595db24059de</string>
+
+
+
+    <!--  Firebase Client ID  -->
+    <string name="firebaseClientId">570477982915-q950mdhdssfao9muie0ga3vh5307nl06.apps.googleusercontent.com</string>
+
 </resources>

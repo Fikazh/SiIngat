@@ -6,6 +6,8 @@ import android.content.IntentSender;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -47,6 +49,9 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -59,18 +64,29 @@ public class cobaLogin extends AppCompatActivity implements View.OnClickListener
     private BeginSignInRequest signUpRequest;
     private static final int REQ_ONE_TAP_GOOGLE = 97521;  // Can be any integer unique to the Activity.
     private boolean showOneTapUI = true;
+
+    //Firebase
     private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private FirebaseFirestore dbFire;
 
     //Facebook Signup
     private CallbackManager mCallbackManager;
     private LoginButton loginButton;
     private static final int REQ_ONE_TAP_FACEBOOK = 64206;  // Fixed Activity From Facebook
 
+    //Local Java
+    private User usr;
+
     protected int REQ_ONE_TAP_GENERAL;
 
     private SignInButton signInButton;
     private Button btnLog;
     private TextView tvUser;
+
+    //Database
+    Database database;
+    private TextView tvUID, tvName, tvGender, tvBirth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +114,7 @@ public class cobaLogin extends AppCompatActivity implements View.OnClickListener
                 .build();
 
         mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
@@ -120,13 +137,50 @@ public class cobaLogin extends AppCompatActivity implements View.OnClickListener
                 Log.d("facebook", "facebook:onError", error);
             }
         });
+
+        //Firestore
+        dbFire = FirebaseFirestore.getInstance();
+        DocumentReference docRef = dbFire.collection("users").document(currentUser.getUid().toString());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d("Firestore doc", "DocumentSnapshot data: " + document.toObject(User.class).getName());
+                    } else {
+                        Log.d("Firestore doc", "No such document");
+                    }
+                } else {
+                    Log.d("Firestore doc", "get failed with ", task.getException());
+                }
+            }
+        });
+
+//        //Database
+//        database = new Database(this);
+//        SQLiteDatabase db = database.getReadableDatabase();
+//        Log.d("GetUID","UID : " + currentUser.getUid());
+//        Cursor c = db.rawQuery("SELECT * FROM Users WHERE TRIM(UID) = '"+ currentUser.getUid().toString().trim() +"'", null);
+//        c.moveToNext();
+////        Log.d("Data select","UID : " + c.getString(c.getColumnIndex("UID")));
+//        tvUID = findViewById(R.id.tv_UID);
+//        tvUID.setText(c.getString(c.getColumnIndex("UID")));
+//
+//        tvName = findViewById(R.id.tv_Namee);
+//        tvName.setText(c.getString(c.getColumnIndex("Name")));
+//
+//        tvGender = findViewById(R.id.tv_Genderr);
+//        tvGender.setText(c.getString(c.getColumnIndex("Gender")));
+//
+//        tvBirth = findViewById(R.id.tv_Birthh);
+//        tvBirth.setText(c.getString(c.getColumnIndex("Birth")));
     }
 
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser!=null){
             tvUser.setText("Hello " + currentUser.getDisplayName());
         }

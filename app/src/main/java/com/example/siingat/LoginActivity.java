@@ -42,11 +42,18 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Locale;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     //Firebase
     private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private FirebaseFirestore dbFire;
 
     //Google Signup
     private SignInClient oneTapClient;
@@ -74,6 +81,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         //Firebase Auth Initial
         mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        dbFire = FirebaseFirestore.getInstance();
 
         //google Button Initial
         oneTapClient = Identity.getSignInClient(this);
@@ -113,18 +122,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         tvCopyRigth = findViewById(R.id.tv_copyright);
 
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser!=null){
-            tvCopyRigth.setText("Hello " + currentUser.getDisplayName());
+
+        }else{
+
         }
+
+        //Default Language for Google button text
+        String language = Locale.getDefault().getLanguage().toString();
         TextView textView = (TextView) signInButtonGoogle.getChildAt(0);
-        textView.setText("Continue With Google");
+        if(language == "in") {
+            textView.setText("Lanjutkan dengan Google");
+        }else{
+            textView.setText("Continue with Google");
+        }
 
 //        updateUI(currentUser);
     }
@@ -241,8 +259,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void updateUI(FirebaseUser user){
-        Intent i = new Intent(getApplicationContext(), SignupActivity.class);
-        startActivity(i);
+        DocumentReference docRef = dbFire.collection("users").document(user.getUid().toString());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d("Firestore doc", "DocumentSnapshot data: " + document.getData());
+                        Intent i = new Intent(getApplicationContext(), cobaLogin.class);
+                        startActivity(i);
+                    } else {
+                        Log.d("Firestore doc", "No such document");
+                        Intent i = new Intent(getApplicationContext(), SignupActivity.class);
+                        startActivity(i);
+                    }
+                } else {
+                    Log.d("Firestore doc", "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
 }

@@ -28,7 +28,7 @@ public class Intro3Fragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_intro3){
-            Intent homeIntent = new Intent(getActivity(), MainActivity.class);
+            Intent homeIntent = new Intent(getActivity(), LoginActivity.class);
             startActivity(homeIntent);
         }
     }

@@ -30,6 +30,7 @@ public class EventEditActivity extends AppCompatActivity
     int hour, minute;
 
     String time;
+    String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -65,7 +66,11 @@ public class EventEditActivity extends AppCompatActivity
     }
 
     private void updateLabel(){
-        String myFormat = "yyyy-MM-dd";
+        String sFormat = "yyyy-MM-dd";
+        SimpleDateFormat shortDateFormat = new SimpleDateFormat(sFormat, Locale.US);
+        date = shortDateFormat.format(myCalendar.getTime());
+
+        String myFormat = "EEE, d MMM yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.US);
         eventDateET.setText(dateFormat.format(myCalendar.getTime()));
     }
@@ -102,8 +107,7 @@ public class EventEditActivity extends AppCompatActivity
     {
         String eventName = eventDescET.getText().toString();
 
-        String eventDatetoString = eventDateET.getText().toString();
-        LocalDate eventDate = LocalDate.parse(eventDatetoString);
+        LocalDate eventDate = LocalDate.parse(date);
 
         LocalTime eventTime = LocalTime.parse(time);
 

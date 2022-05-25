@@ -1,41 +1,40 @@
 package com.example.siingat;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.BeginSignInResult;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
@@ -43,37 +42,48 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
-    //Firebase
-    private FirebaseAuth mAuth;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+
+public class cobaLogin extends AppCompatActivity implements View.OnClickListener {
 
     //Google Signup
     private SignInClient oneTapClient;
     private BeginSignInRequest signUpRequest;
     private static final int REQ_ONE_TAP_GOOGLE = 97521;  // Can be any integer unique to the Activity.
     private boolean showOneTapUI = true;
-    private SignInButton signInButtonGoogle;
+    private FirebaseAuth mAuth;
 
     //Facebook Signup
     private CallbackManager mCallbackManager;
-    private LoginButton signInButtonFacebook;
+    private LoginButton loginButton;
     private static final int REQ_ONE_TAP_FACEBOOK = 64206;  // Fixed Activity From Facebook
 
-    //requestcode
     protected int REQ_ONE_TAP_GENERAL;
 
-
-    private TextView tvCopyRigth;
-
+    private SignInButton signInButton;
+    private Button btnLog;
+    private TextView tvUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_coba_login);
 
-        //Firebase Auth Initial
-        mAuth = FirebaseAuth.getInstance();
+        signInButton = findViewById(R.id.btn_gog);
+        signInButton.setOnClickListener(this);
+
+        btnLog = findViewById(R.id.btn_logt);
+        btnLog.setOnClickListener(this);
+
+        tvUser = findViewById(R.id.tv_user);
 
         //google Button Initial
         oneTapClient = Identity.getSignInClient(this);
@@ -86,14 +96,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         .setFilterByAuthorizedAccounts(false)
                         .build())
                 .build();
-        signInButtonGoogle = findViewById(R.id.btn_sign_google);
-        signInButtonGoogle.setOnClickListener(this);
+
+        mAuth = FirebaseAuth.getInstance();
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
-        signInButtonFacebook = findViewById(R.id.btn_sign_facebook);
-        signInButtonFacebook.setReadPermissions("email", "public_profile");
-        signInButtonFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+        loginButton = findViewById(R.id.btn_fbk);
+        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d("Facebook", "facebook:onSuccess:" + loginResult);
@@ -110,9 +120,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.d("facebook", "facebook:onError", error);
             }
         });
-
-        tvCopyRigth = findViewById(R.id.tv_copyright);
-
     }
 
     @Override
@@ -121,10 +128,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser!=null){
-            tvCopyRigth.setText("Hello " + currentUser.getDisplayName());
+            tvUser.setText("Hello " + currentUser.getDisplayName());
         }
-        TextView textView = (TextView) signInButtonGoogle.getChildAt(0);
-        textView.setText("Continue With Google");
+        TextView textView = (TextView) signInButton.getChildAt(0);
+        textView.setText("Continue With");
 
 //        updateUI(currentUser);
     }
@@ -133,7 +140,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case (R.id.btn_sign_google):
+            case (R.id.btn_gog):
                 REQ_ONE_TAP_GENERAL = 97521;
                 oneTapClient.beginSignIn(signUpRequest)
                         .addOnSuccessListener(this, new OnSuccessListener<BeginSignInResult>() {
@@ -156,6 +163,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             }
                         });
                 break;
+            case (R.id.btn_logt):
+                tvUser.setText("Hello user");
+                FirebaseAuth.getInstance().signOut();
+                Log.d("Logout","Logout Firebase success");
+                Toast.makeText(getApplicationContext(),"Logout Success",Toast.LENGTH_LONG).show();
+                break;
         }
     }
 
@@ -163,6 +176,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("Request","code : " +requestCode);
+//        mCallbackManager.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
             case REQ_ONE_TAP_GOOGLE:
@@ -182,7 +196,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             // Sign in success, update UI with the signed-in user's information
                                             Log.d("Firebase", "signInWithCredential:success");
                                             FirebaseUser user = mAuth.getCurrentUser();
-                                            updateUI(user);
+//                                            updateUI(user);
+                                            tvUser.setText("Hello " + credential.getDisplayName());
                                         } else {
                                             // If sign in fails, display a message to the user.
                                             Log.w("Firebase", "signInWithCredential:failure", task.getException());
@@ -229,20 +244,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Facebook handle", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            tvUser.setText("Hello " + user.getDisplayName());
+//                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Facebook handle", "signInWithCredential:failure", task.getException());
                             Toast.makeText(getApplicationContext(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+//                            updateUI(null);
                         }
                     }
                 });
     }
-
-    private void updateUI(FirebaseUser user){
-        Intent i = new Intent(getApplicationContext(), SignupActivity.class);
-        startActivity(i);
-    }
-
 }

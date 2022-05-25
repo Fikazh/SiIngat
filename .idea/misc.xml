@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/drawable/fui_ic_facebook_blue_22dp.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/activity_coba_login.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/activity_intro.xml" value="0.14221014492753623" />
+        <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/activity_signup.xml" value="0.14221014492753623" />
+        <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/fragment_home.xml" value="0.14221014492753623" />
+        <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/fragment_intro1.xml" value="0.14221014492753623" />
+        <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/fragment_intro2.xml" value="0.14221014492753623" />
         <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/drawable/btn_del_act.xml" value="0.1005" />
         <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/drawable/circle_shape.xml" value="0.1" />
         <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/drawable/field_text.xml" value="0.1" />
@@ -34,7 +42,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

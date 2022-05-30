@@ -3,8 +3,11 @@ package com.example.siingat;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.content.IntentSender;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,7 +51,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Locale;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     //Firebase
     private FirebaseAuth mAuth;
@@ -70,6 +73,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //requestcode
     protected int REQ_ONE_TAP_GENERAL;
 
+    //Local Java
+    private User usr;
+
+    //SQLite
+    private Database database;
 
     private TextView tvCopyRigth;
 
@@ -83,6 +91,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         dbFire = FirebaseFirestore.getInstance();
+
+        //SQLite initial
+        database = new Database(this);
+
+        //User object initial
+        usr = new User();
 
         //google Button Initial
         oneTapClient = Identity.getSignInClient(this);
@@ -129,18 +143,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        if (currentUser!=null){
+        if (currentUser != null) {
 
-        }else{
+        } else {
 
         }
 
         //Default Language for Google button text
         String language = Locale.getDefault().getLanguage().toString();
         TextView textView = (TextView) signInButtonGoogle.getChildAt(0);
-        if(language == "in") {
+        if (language == "in") {
             textView.setText("Lanjutkan dengan Google");
-        }else{
+        } else {
             textView.setText("Continue with Google");
         }
 
@@ -180,14 +194,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("Request","code : " +requestCode);
+        Log.d("Request", "code : " + requestCode);
 
         switch (requestCode) {
             case REQ_ONE_TAP_GOOGLE:
                 try {
                     SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(data);
                     String idToken = credential.getGoogleIdToken();
-                    if (idToken !=  null) {
+                    if (idToken != null) {
                         // Got an ID token from Google. Use it to authenticate
                         // with your backend.
                         Log.d("lOGIN", "Got ID token.");
@@ -221,7 +235,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Try again or just ignore.
                             break;
                         default:
-                            Log.d("Login","Couldnt get credential from result"
+                            Log.d("Login", "Couldnt get credential from result"
                                     + e.getLocalizedMessage());
                             break;
                     }
@@ -258,7 +272,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 });
     }
 
-    private void updateUI(FirebaseUser user){
+    private void updateUI(FirebaseUser user) {
         DocumentReference docRef = dbFire.collection("users").document(user.getUid().toString());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -267,8 +281,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d("Firestore doc", "DocumentSnapshot data: " + document.getData());
-                        Intent i = new Intent(getApplicationContext(), cobaLogin.class);
-                        startActivity(i);
+                        try {
+                            //if SQLite with UID null run this
+                            usr.setUID(document.getId());
+                            usr.setName(document.getData().get("Name").toString());
+                            usr.setGender(document.getData().get("Gender").toString());
+                            usr.setBirth(document.getData().get("Birth").toString());
+                            SQLiteDatabase db = database.getWritableDatabase();
+                            db.execSQL("insert into Users(UID, Name, Gender, Birth) values ('" +
+                                    usr.getUID() + "','" +
+                                    usr.getName() + "','" +
+                                    usr.getGender() + "','" +
+                                    usr.getBirth() + "')");
+                            Log.d("Sqlite", "Stored Data Success");
+
+                        } catch (Exception e) {
+                            //if SQLite with UID not null run this
+                            SQLiteDatabase db = database.getReadableDatabase();
+                            Log.d("GetUID", "UID : " + user.getUid());
+
+                            //Get Data from SQLite
+                            Cursor c = db.rawQuery("SELECT * FROM Users WHERE TRIM(UID) = '" + user.getUid().toString().trim() + "'", null);
+                            c.moveToNext();
+                            Log.d("Data select", "UID : " + c.getString(c.getColumnIndex("UID")));
+                        } finally {
+                            Intent i = new Intent(getApplicationContext(), cobaLogin.class);
+                            startActivity(i);
+                        }
+
                     } else {
                         Log.d("Firestore doc", "No such document");
                         Intent i = new Intent(getApplicationContext(), SignupActivity.class);

@@ -7,6 +7,13 @@ public class User {
     public String UID, Name, Gender, Birth;
 
 
+    public User() {
+        this.UID = "UIDNull";
+        this.Name = "NameNull";
+        this.Gender = "GenderNull";
+        this.Birth = "BirthNull";
+    }
+
     public User(String UID, String name, String gender, String birth) {
         this.UID = UID;
         this.Name = name;

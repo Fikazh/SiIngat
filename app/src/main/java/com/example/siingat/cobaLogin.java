@@ -78,14 +78,14 @@ public class cobaLogin extends AppCompatActivity implements View.OnClickListener
     //Local Java
     private User usr;
 
+    //Database
+    private Database database;
+
     protected int REQ_ONE_TAP_GENERAL;
 
     private SignInButton signInButton;
     private Button btnLog;
     private TextView tvUser;
-
-    //Database
-    Database database;
     private TextView tvUID, tvName, tvGender, tvBirth;
 
     @Override
@@ -113,8 +113,15 @@ public class cobaLogin extends AppCompatActivity implements View.OnClickListener
                         .build())
                 .build();
 
+        //firebase initial
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+
+        //SQLite initial
+        database = new Database(this);
+
+        //User object initial
+        usr = new User();
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
@@ -147,7 +154,7 @@ public class cobaLogin extends AppCompatActivity implements View.OnClickListener
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        Log.d("Firestore doc", "DocumentSnapshot data: " + document.toObject(User.class).getName());
+                        Log.d("Firestore doc", "DocumentSnapshot data: " + document.getData() );
                     } else {
                         Log.d("Firestore doc", "No such document");
                     }
@@ -157,24 +164,27 @@ public class cobaLogin extends AppCompatActivity implements View.OnClickListener
             }
         });
 
-//        //Database
-//        database = new Database(this);
-//        SQLiteDatabase db = database.getReadableDatabase();
-//        Log.d("GetUID","UID : " + currentUser.getUid());
-//        Cursor c = db.rawQuery("SELECT * FROM Users WHERE TRIM(UID) = '"+ currentUser.getUid().toString().trim() +"'", null);
-//        c.moveToNext();
-////        Log.d("Data select","UID : " + c.getString(c.getColumnIndex("UID")));
-//        tvUID = findViewById(R.id.tv_UID);
-//        tvUID.setText(c.getString(c.getColumnIndex("UID")));
-//
-//        tvName = findViewById(R.id.tv_Namee);
-//        tvName.setText(c.getString(c.getColumnIndex("Name")));
-//
-//        tvGender = findViewById(R.id.tv_Genderr);
-//        tvGender.setText(c.getString(c.getColumnIndex("Gender")));
-//
-//        tvBirth = findViewById(R.id.tv_Birthh);
-//        tvBirth.setText(c.getString(c.getColumnIndex("Birth")));
+        //Database
+        SQLiteDatabase db = database.getReadableDatabase();
+        Log.d("GetUID","UID : " + currentUser.getUid());
+
+        //Get Data from SQLite
+        Cursor c = db.rawQuery("SELECT * FROM Users WHERE TRIM(UID) = '"+ currentUser.getUid().toString().trim() +"'", null);
+        c.moveToNext();
+        Log.d("Data select","UID : " + c.getString(c.getColumnIndex("UID")));
+
+        //Change TextView
+        tvUID = findViewById(R.id.tv_UID);
+        tvUID.setText(c.getString(c.getColumnIndex("UID")));
+
+        tvName = findViewById(R.id.tv_Namee);
+        tvName.setText(c.getString(c.getColumnIndex("Name")));
+
+        tvGender = findViewById(R.id.tv_Genderr);
+        tvGender.setText(c.getString(c.getColumnIndex("Gender")));
+
+        tvBirth = findViewById(R.id.tv_Birthh);
+        tvBirth.setText(c.getString(c.getColumnIndex("Birth")));
     }
 
     @Override

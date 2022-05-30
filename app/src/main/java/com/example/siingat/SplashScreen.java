@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
@@ -36,9 +37,6 @@ public class SplashScreen extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private FirebaseFirestore dbFire;
-
-    //Local Java
-    private User usr;
 
     Animation topAnim, leftAnim, rightAnim, fadeInAnim;
     TextView Welcome;
@@ -74,23 +72,6 @@ public class SplashScreen extends AppCompatActivity {
         circleShape.setAnimation(fadeInAnim);
         logo.setAnimation(fadeInAnim);
 
-
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    if (document.exists()) {
-//                        Log.d("Firestore", "DocumentSnapshot data: " + document.getId());
-//                    } else {
-//                        Log.d("Firestore", "No such document");
-//                    }
-//                } else {
-//                    Log.d("Firestore", "get failed with ", task.getException());
-//                }
-//            }
-//        });
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -103,16 +84,16 @@ public class SplashScreen extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot document = task.getResult();
                                 if (document.exists()) {
-                                    Log.d("Firestore doc", "DocumentSnapshot data: " + document.getData());
+                                    Log.d("Firestore doc splsh", "DocumentSnapshot data: " + document.getData());
                                     Intent i = new Intent(getApplicationContext(), cobaLogin.class);
                                     startActivity(i);
                                 } else {
-                                    Log.d("Firestore doc", "No such document");
+                                    Log.d("Firestore doc splsh", "No such document");
                                     Intent i = new Intent(getApplicationContext(), SignupActivity.class);
                                     startActivity(i);
                                 }
                             } else {
-                                Log.d("Firestore doc", "get failed with ", task.getException());
+                                Log.d("Firestore doc splsh", "get failed with ", task.getException());
                             }
                         }
                     });

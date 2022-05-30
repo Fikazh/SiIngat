@@ -161,7 +161,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(getApplicationContext(), "Data Error", Toast.LENGTH_LONG).show();
                 }
 
-                Intent introIntent = new Intent(SignupActivity.this, cobaLogin.class);
+                Intent introIntent = new Intent(SignupActivity.this, MainActivity.class);
                 startActivity(introIntent);
                 break;
         }

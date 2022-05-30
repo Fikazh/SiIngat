@@ -305,7 +305,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             c.moveToNext();
                             Log.d("Data select", "UID : " + c.getString(c.getColumnIndex("UID")));
                         } finally {
-                            Intent i = new Intent(getApplicationContext(), cobaLogin.class);
+                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(i);
                         }
 

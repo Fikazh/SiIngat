@@ -1,5 +1,6 @@
 package com.example.siingat;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
@@ -17,16 +19,24 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 
 public class SplashScreen extends AppCompatActivity {
 
     //Firebase
     private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private FirebaseFirestore dbFire;
 
     Animation topAnim, leftAnim, rightAnim, fadeInAnim;
     TextView Welcome;
@@ -37,6 +47,11 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        //Firebase Auth Initial
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        dbFire = FirebaseFirestore.getInstance();
 
         //Animation
         topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
@@ -61,10 +76,28 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 // Check if user is signed in (non-null) and update UI accordingly.
-                FirebaseUser currentUser = mAuth.getCurrentUser();
                 if (currentUser!=null){
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(i);
+                    DocumentReference docRef = dbFire.collection("users").document(currentUser.getUid().toString());
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    Log.d("Firestore doc splsh", "DocumentSnapshot data: " + document.getData());
+                                    Intent i = new Intent(getApplicationContext(), cobaLogin.class);
+                                    startActivity(i);
+                                } else {
+                                    Log.d("Firestore doc splsh", "No such document");
+                                    Intent i = new Intent(getApplicationContext(), SignupActivity.class);
+                                    startActivity(i);
+                                }
+                            } else {
+                                Log.d("Firestore doc splsh", "get failed with ", task.getException());
+                            }
+                        }
+                    });
+//                    Log.d("Check Doc","name of doc : " + docRef.getId());
                 }else{
                     Intent i = new Intent(getApplicationContext(), IntroActivity.class);
                     startActivity(i);
@@ -73,10 +106,9 @@ public class SplashScreen extends AppCompatActivity {
             }
         }, 1500);
 
-        //Firebase Auth Initial
-        mAuth = FirebaseAuth.getInstance();
-
 //        printHashKey(this);
+
+
     }
 
     private static void printHashKey(Context pContext) {

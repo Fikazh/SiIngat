@@ -85,7 +85,7 @@ public class SplashScreen extends AppCompatActivity {
                                 DocumentSnapshot document = task.getResult();
                                 if (document.exists()) {
                                     Log.d("Firestore doc splsh", "DocumentSnapshot data: " + document.getData());
-                                    Intent i = new Intent(getApplicationContext(), cobaLogin.class);
+                                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(i);
                                 } else {
                                     Log.d("Firestore doc splsh", "No such document");

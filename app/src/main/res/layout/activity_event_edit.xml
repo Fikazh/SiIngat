@@ -1,146 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     tools:context=".EventEditActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="Add"
-        android:textSize="20sp"
-        android:textAlignment="center"
-        android:textColor="@color/black"/>
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <View
-        android:layout_width="20dp"
-        android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:background="#407BFF"/>
-
-    <com.google.android.material.chip.ChipGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        app:chipSpacingHorizontal="20dp"
-        app:singleSelection="true">
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/todoChip"
-            android:text="ToDo"
-            android:textSize="20sp"
-            app:chipMinHeight="40dp"
-            app:chipStartPadding="10dp"
-            app:chipEndPadding="10dp"
-            style="@style/CustomChipStyle"
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/meetChip"
-            android:text="Meet"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Add"
             android:textSize="20sp"
-            app:chipMinHeight="40dp"
-            app:chipStartPadding="10dp"
-            app:chipEndPadding="10dp"
-            style="@style/CustomChipStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textAlignment="center"
+            android:textColor="@color/black"/>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/eventChip"
-            android:text="Event"
+        <View
+            android:layout_width="20dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:background="#407BFF"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            app:chipSpacingHorizontal="20dp"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/todoChip"
+                android:text="ToDo"
+                android:textSize="20sp"
+                app:chipMinHeight="40dp"
+                app:chipStartPadding="10dp"
+                app:chipEndPadding="10dp"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/meetChip"
+                android:text="Meet"
+                android:textSize="20sp"
+                app:chipMinHeight="40dp"
+                app:chipStartPadding="10dp"
+                app:chipEndPadding="10dp"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/eventChip"
+                android:text="Event"
+                android:textSize="20sp"
+                app:chipMinHeight="40dp"
+                app:chipStartPadding="10dp"
+                app:chipEndPadding="10dp"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.chip.ChipGroup>
+
+        <EditText
+            android:id="@+id/eventDescET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:hint="Description"
             android:textSize="20sp"
-            app:chipMinHeight="40dp"
-            app:chipStartPadding="10dp"
-            app:chipEndPadding="10dp"
-            style="@style/CustomChipStyle"
+            android:ems="10"
+            android:inputType="text"
+            android:backgroundTint="#407BFF"/>
+
+        <EditText
+            android:id="@+id/eventDateET"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.chip.ChipGroup>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:hint="Date"
+            android:textSize="20sp"
+            android:ems="10"
+            android:clickable="false"
+            android:focusable="false"
+            android:backgroundTint="#407BFF"/>
 
-    <EditText
-        android:id="@+id/eventDescET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:hint="Description"
-        android:textSize="20sp"
-        android:ems="10"
-        android:inputType="text"
-        android:backgroundTint="#407BFF"/>
+        <EditText
+            android:id="@+id/eventTimeET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:hint="Time"
+            android:textSize="20sp"
+            android:ems="10"
+            android:clickable="false"
+            android:focusable="false"
+            android:onClick="timePicker"
+            android:backgroundTint="#407BFF"/>
 
-    <EditText
-        android:id="@+id/eventDateET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:hint="Date"
-        android:textSize="20sp"
-        android:ems="10"
-        android:clickable="false"
-        android:focusable="false"
-        android:backgroundTint="#407BFF"/>
+        <CheckBox
+            android:id="@+id/priorityCB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Set as priority?"
+            android:textColor="#407BFF"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:onClick="onCheckboxClicked"
+            android:buttonTint="#407BFF"/>
 
-    <EditText
-        android:id="@+id/eventTimeET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:hint="Time"
-        android:textSize="20sp"
-        android:ems="10"
-        android:clickable="false"
-        android:focusable="false"
-        android:onClick="timePicker"
-        android:backgroundTint="#407BFF"/>
+        <Button
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:textColor="#407BFF"
+            android:background="@drawable/rect_rad30_transparent"
+            app:backgroundTint="@null"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:textStyle="bold"
+            android:onClick="saveEventAction"
+            android:layout_gravity="center"
+            android:textSize="20sp"/>
 
-    <CheckBox
-        android:id="@+id/priorityCB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Set as priority?"
-        android:textColor="#407BFF"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        android:onClick="onCheckboxClicked"
-        android:buttonTint="#407BFF"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:textColor="#407BFF"
+            android:background="@drawable/rect_rad30_transparent"
+            app:backgroundTint="@null"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:textStyle="bold"
+            android:onClick="backAction"
+            android:layout_gravity="center"
+            android:textSize="20sp"/>
+    </LinearLayout>
 
-    <Button
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:textColor="#407BFF"
-        android:background="@drawable/rect_rad30_transparent"
-        app:backgroundTint="@null"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:textStyle="bold"
-        android:onClick="saveEventAction"
-        android:layout_gravity="center"
-        android:textSize="20sp"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        android:textColor="#407BFF"
-        android:background="@drawable/rect_rad30_transparent"
-        app:backgroundTint="@null"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:textStyle="bold"
-        android:onClick="backAction"
-        android:layout_gravity="center"
-        android:textSize="20sp"/>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

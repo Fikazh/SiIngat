@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MenuAkunActivity">
 
+    <!-- INI MENU PROFILE-->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
@@ -57,18 +58,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Date"
-                android:textColor="#fff"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nameAkun" />
-
             <TextClock
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
@@ -80,14 +69,14 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/date" />
+                app:layout_constraintTop_toBottomOf="@id/nameAkun" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+        <!-- INI NAMA DAN FIELD NAMA-->
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
@@ -95,27 +84,27 @@
         android:text="Name:"
         android:textColor="@color/black"
         android:textSize="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.119"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar"
-        app:layout_constraintVertical_bias="0.029" />
+        app:layout_constraintTop_toBottomOf="@+id/topBar"/>
 
-    <TextView
+    <EditText
         android:id="@+id/name_field"
-        android:layout_width="324dp"
-        android:layout_height="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:background="@drawable/field_text"
         android:text=" Human"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="45dp"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:maxLines="1"
+        android:maxLength="28"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar"
-        app:layout_constraintVertical_bias="0.107" />
+        app:layout_constraintTop_toBottomOf="@+id/name"/>
 
+    <!-- INI BIRTH-->
     <TextView
         android:id="@+id/birth"
         android:layout_width="wrap_content"
@@ -123,13 +112,56 @@
         android:text="Birth:"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.115"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar"
-        app:layout_constraintVertical_bias="0.201" />
+        app:layout_constraintTop_toBottomOf="@+id/name_field" />
 
+    <!-- INI FIELD BIRTH-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/birth_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/gray_E0"
+        android:elevation="20dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="45dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/birth" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/lyt_birth"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <EditText
+                android:id="@+id/et_birth"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:background="@color/gray_E0"
+                android:clickable="false"
+                android:focusable="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_calendar" />
+
+            <ImageView
+                android:id="@+id/iv_calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginRight="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/calendar_icon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+ <!--
     <TextView
         android:id="@+id/birth_field"
         android:layout_width="324dp"
@@ -137,14 +169,12 @@
         android:background="@drawable/field_text"
         android:text=" 30 February 2022"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar"
-        app:layout_constraintVertical_bias="0.281" />
+        app:layout_constraintTop_toBottomOf="@+id/birth" />
+    -->
 
-
+    <!-- INI GENDER-->
     <TextView
         android:id="@+id/gender"
         android:layout_width="wrap_content"
@@ -152,27 +182,25 @@
         android:text="Gender:"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.124"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar"
-        app:layout_constraintVertical_bias="0.368" />
+        app:layout_constraintTop_toBottomOf="@+id/birth_field" />
 
     <TextView
         android:id="@+id/gender_field"
-        android:layout_width="324dp"
-        android:layout_height="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="45dp"
         android:background="@drawable/field_text"
         android:text=" Male"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar"
-        app:layout_constraintVertical_bias="0.457" />
+        app:layout_constraintTop_toBottomOf="@+id/gender" />
 
+    <!-- INI EMAIL-->
     <TextView
         android:id="@+id/email"
         android:layout_width="wrap_content"
@@ -180,42 +208,140 @@
         android:text="Email:"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.118"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar"
-        app:layout_constraintVertical_bias="0.55" />
+        app:layout_constraintTop_toBottomOf="@+id/gender_field" />
 
     <TextView
         android:id="@+id/email_field"
-        android:layout_width="324dp"
-        android:layout_height="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:background="@drawable/field_text"
         android:text=" Human@gmail.com "
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="45dp"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar"
-        app:layout_constraintVertical_bias="0.636" />
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
+    <!-- INI BUTTON-->
     <Button
-        android:id="@+id/btn_mainMenu"
+        android:id="@+id/btn_update"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
         android:layout_width="341dp"
         android:layout_height="38dp"
         android:background="@drawable/button_blue"
-        android:text="Main Menu"
+        android:text="Update Profile"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar"
-        app:layout_constraintVertical_bias="0.833" />
+        app:layout_constraintTop_toBottomOf="@+id/email_field" />
 
+    <TextView
+        android:id="@+id/settingInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Setting Information:"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="40dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_update"/>
+
+    <LinearLayout
+        android:id="@+id/layoutSetting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingInformation">
+    <TextView
+        android:id="@+id/Languange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Languange:"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingInformation" />
+
+
+    <TextView
+        android:id="@+id/Theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Theme:"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bahasaBox" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutSetting2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutSetting">
+    <TextView
+        android:id="@+id/bahasaBox"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textSize="18sp"
+        android:paddingLeft="1dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="45dp"
+        android:text="English"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Languange"/>
+
+        <TextView
+            android:id="@+id/themeBox"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textSize="18sp"
+            android:paddingLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="45dp"
+            android:text="Light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Theme"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="version:1.0.0 @copyright SiIngat"
+        android:layout_marginTop="4dp"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutSetting2"/>
+
+    <!-- INI BUTTON -->
     <Button
         android:id="@+id/btn_logout"
+        android:layout_marginTop="15dp"
         android:layout_width="341dp"
         android:layout_height="38dp"
         android:background="@drawable/button_keluar"
@@ -223,9 +349,8 @@
         android:textColor="@color/white"
         app:backgroundTint="#E33B4A"
         style="@style/Widget.AppCompat.Button.Borderless"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar"
-        app:layout_constraintVertical_bias="0.939" />
+        app:layout_constraintTop_toBottomOf="@+id/version" />
 </androidx.constraintlayout.widget.ConstraintLayout>

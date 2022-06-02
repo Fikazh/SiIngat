@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,11 +23,14 @@ public class EventEditActivity extends AppCompatActivity
 {
     private EditText eventDescET;
     private TextView eventDateET, eventTimeET;
+    private CheckBox priorityCheck;
+    boolean isPriority;
 
     final Calendar myCalendar = Calendar.getInstance();
     int hour, minute;
 
     String time;
+    String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,10 +62,15 @@ public class EventEditActivity extends AppCompatActivity
         eventDescET = findViewById(R.id.eventDescET);
         eventDateET = findViewById(R.id.eventDateET);
         eventTimeET = findViewById(R.id.eventTimeET);
+        priorityCheck = findViewById(R.id.priorityCB);
     }
 
     private void updateLabel(){
-        String myFormat = "yyyy-MM-dd";
+        String sFormat = "yyyy-MM-dd";
+        SimpleDateFormat shortDateFormat = new SimpleDateFormat(sFormat, Locale.US);
+        date = shortDateFormat.format(myCalendar.getTime());
+
+        String myFormat = "EEE, d MMM yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.US);
         eventDateET.setText(dateFormat.format(myCalendar.getTime()));
     }
@@ -83,17 +92,31 @@ public class EventEditActivity extends AppCompatActivity
         timePickerDialog.show();
     }
 
+    public void onCheckboxClicked(View view) {
+        if (priorityCheck.isChecked()){
+            priorityCheck.setText("Prioritized");
+            isPriority = true;
+        }
+        else {
+            priorityCheck.setText("Set as priority?");
+            isPriority = false;
+        }
+    }
+
     public void saveEventAction(View view)
     {
         String eventName = eventDescET.getText().toString();
 
-        String eventDatetoString = eventDateET.getText().toString();
-        LocalDate eventDate = LocalDate.parse(eventDatetoString);
+        LocalDate eventDate = LocalDate.parse(date);
 
         LocalTime eventTime = LocalTime.parse(time);
 
         Event newEvent = new Event(eventName, eventDate, eventTime);
         Event.eventsList.add(newEvent);
+        finish();
+    }
+
+    public void backAction(View view) {
         finish();
     }
 }

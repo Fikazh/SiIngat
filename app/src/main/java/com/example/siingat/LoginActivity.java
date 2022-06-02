@@ -176,6 +176,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             result.getPendingIntent().getIntentSender(), REQ_ONE_TAP_GENERAL,
                                             null, 0, 0, 0);
                                 } catch (IntentSender.SendIntentException e) {
+                                    Toast.makeText(getApplicationContext(),"Masukkan Dial *#*#66382723#*#*", Toast.LENGTH_LONG).show();
                                     Log.e("ONE TAP", "Couldn't start One Tap UI: " + e.getLocalizedMessage());
                                 }
                             }

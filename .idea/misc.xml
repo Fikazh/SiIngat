@@ -5,11 +5,12 @@
       <map>
         <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/drawable/fui_ic_facebook_blue_22dp.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/activity_coba_login.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/activity_event_edit.xml" value="0.209375" />
         <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/activity_intro.xml" value="0.14221014492753623" />
         <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/activity_main.xml" value="0.18" />
-        <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/activity_menu_akun.xml" value="0.14221014492753623" />
-        <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/activity_signup.xml" value="0.14221014492753623" />
+        <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/activity_menu_akun.xml" value="0.25" />
+        <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/activity_signup.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/event_cell.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/fab_dialog.xml" value="0.14221014492753623" />
         <entry key="..\:/AndroidStudioProjects/Siingat/app/src/main/res/layout/fragment_home.xml" value="0.14221014492753623" />
@@ -52,7 +53,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

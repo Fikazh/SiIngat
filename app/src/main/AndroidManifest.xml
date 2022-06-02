@@ -25,6 +25,7 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".WeekViewActivity" />
         <activity android:name=".EventEditActivity" />
+        <activity android:name=".MenuAkunActivity" />
         <activity
             android:name=".SplashScreen"
             android:exported="true" >

@@ -24,7 +24,7 @@
         <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/drawable/rect_rad30_white.xml" value="0.1035" />
         <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/drawable/rect_rad50_bluegrad.xml" value="0.1035" />
         <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/drawable/splash_gradient_background.xml" value="0.1" />
-        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_event_edit.xml" value="0.17028985507246377" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_event_edit.xml" value="0.25" />
         <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_home.xml" value="0.15760869565217392" />
         <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_intro.xml" value="0.1" />
         <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/activity_login.xml" value="0.25" />
@@ -48,7 +48,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

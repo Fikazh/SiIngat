@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -68,6 +70,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         btnUnfocus = btnGender[0];
+        selectedBtn = -1;
 
         etBirth = (EditText) findViewById(R.id.et_birth);
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -117,53 +120,82 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 setFocus(btnUnfocus, btnGender[selectedBtn]);
                 break;
             case R.id.btn_next:
-                try {
-                    usr = new User(currentUser.getUid().toString(), etName.getText().toString(),
-                            btnGender[selectedBtn].getText().toString(), etBirth.getText().toString());
-
+                if (TextUtils.isEmpty(etName.getText().toString())) {
+                    etName.setError("Name Cannot be Empty");
+                    return;
+                } else if (etName.length() >= 23) {
+                    etName.setError("Maximum 22 characters");
+                    return;
+                } else if (selectedBtn == -1){
+                    Toast.makeText(getApplicationContext(),"Gender Cannot be Empty",Toast.LENGTH_LONG).show();
+                    return;
+                }else if (TextUtils.isEmpty(etBirth.getText().toString())) {
+                    etBirth.setError("Birth Cannot be Empty");
+                    return;
+                } else {
                     try {
-                        SQLiteDatabase db = database.getWritableDatabase();
-                        db.execSQL("insert into Users(UID, Name, Gender, Birth) values ('" +
-                                usr.getUID() + "','" +
-                                usr.getName() + "','" +
-                                usr.getGender() + "','" +
-                                usr.getBirth() + "')");
-                        Log.d("Sqlite", "Stored Data Success");
-                    }catch (Exception e){
-                        Log.d("Sqlite", "Data has been stored");
+                        usr = new User(currentUser.getUid().toString(), etName.getText().toString(),
+                                btnGender[selectedBtn].getText().toString(), etBirth.getText().toString());
+
+                        try {
+                            SQLiteDatabase db = database.getWritableDatabase();
+                            db.execSQL("insert into Users(UID, Name, Gender, Birth) values ('" +
+                                    usr.getUID() + "','" +
+                                    usr.getName() + "','" +
+                                    usr.getGender() + "','" +
+                                    usr.getBirth() + "')");
+                            Log.d("Sqlite", "Stored Data Success");
+                        } catch (Exception e) {
+                            Log.d("Sqlite", "Data has been stored");
+                        }
+
+                        try{
+                            //SQLite initial
+                            SQLiteDatabase db = database.getWritableDatabase();
+
+                            //Get Data from SQLite
+                            Cursor c = db.rawQuery("UPDATE Users set Name = '" + usr.getName().trim() + "', " +
+                                    "Gender = '" + usr.getGender().trim() + "', " +
+                                    "Birth = '" + usr.getBirth() + "' " +
+                                    "where TRIM(UID)='" + currentUser.getUid().toString().trim() + "'", null);
+                            c.moveToNext();
+                            Log.d("Sqlite", "Update data SQLite Success");
+                        } catch (Exception e){
+                            Log.d("Sqlite", "Update data SQLite failed");
+                        }
+
+
+                        // Create a new user with a first and last name
+                        Map<String, Object> user = new HashMap<>();
+                        user.put("Name", usr.getName());
+                        user.put("Gender", usr.getGender());
+                        user.put("Birth", usr.getBirth());
+
+                        // Add a new document with a generated ID
+                        dbFire.collection("users")
+                                .document(usr.getUID())
+                                .set(user)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("Firestore", "DocumentSnapshot successfully written!");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w("Firestore", "Error adding document", e);
+                                    }
+                                });
+                        Toast.makeText(getApplicationContext(), "Data tersimpan", Toast.LENGTH_LONG).show();
+                        finish();
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Data Error", Toast.LENGTH_LONG).show();
+                    } finally {
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     }
-
-                    // Create a new user with a first and last name
-                    Map<String, Object> user = new HashMap<>();
-                    user.put("Name", usr.getName());
-                    user.put("Gender", usr.getGender());
-                    user.put("Birth", usr.getBirth());
-
-                    // Add a new document with a generated ID
-                    dbFire.collection("users")
-                            .document(usr.getUID())
-                            .set(user)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d("Firestore", "DocumentSnapshot successfully written!");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w("Firestore", "Error adding document", e);
-                                }
-                            });
-                    Toast.makeText(getApplicationContext(), "Data tersimpan", Toast.LENGTH_LONG).show();
-                    finish();
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Data Error", Toast.LENGTH_LONG).show();
+                    break;
                 }
-
-                Intent introIntent = new Intent(SignupActivity.this, MainActivity.class);
-                startActivity(introIntent);
-                break;
         }
     }
 

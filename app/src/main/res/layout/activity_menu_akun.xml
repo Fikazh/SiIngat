@@ -16,341 +16,360 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/blue_frame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/gradient_background"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/blue_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_background"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/main_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentInsetEnd="0dp"
-        app:contentInsetStart="0dp">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/main_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentInsetEnd="0dp"
+                app:contentInsetStart="0dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/avatar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="5dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/avatar_round"
-            app:civ_border_color="#D9ffffff"
-            app:civ_border_width="3dp" />
-    </androidx.appcompat.widget.Toolbar>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/avatar_round"
+                    app:civ_border_color="#D9ffffff"
+                    app:civ_border_width="3dp" />
+            </androidx.appcompat.widget.Toolbar>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/nameAkun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hi, Human"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextClock
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:format24Hour="hh:mm a"
+                    android:textAllCaps="true"
+                    android:textColor="#fff"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nameAkun" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
+            <!-- INI NAMA DAN FIELD NAMA-->
             <TextView
-                android:id="@+id/nameAkun"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hi, Human"
-                android:textColor="#fff"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp"
+                android:text="Name:"
+                android:textColor="@color/black"
+                android:textSize="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextClock
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:format24Hour="hh:mm a"
-                android:textAllCaps="true"
-                android:textColor="#fff"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nameAkun" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
-        <!-- INI NAMA DAN FIELD NAMA-->
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name:"
-        android:textColor="@color/black"
-        android:textSize="24dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar"/>
-
-    <EditText
-        android:id="@+id/name_field"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/field_text"
-        android:text=" Human"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="45dp"
-        android:textSize="24sp"
-        android:maxLines="1"
-        android:maxLength="28"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name"/>
-
-    <!-- INI BIRTH-->
-    <TextView
-        android:id="@+id/birth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Birth:"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_field" />
-
-    <!-- INI FIELD BIRTH-->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/birth_field"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/gray_E0"
-        android:elevation="20dp"
-        app:cardCornerRadius="10dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="45dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birth" >
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/lyt_birth"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
             <EditText
-                android:id="@+id/et_birth"
+                android:id="@+id/name_field"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginStart="20dp"
-                android:background="@color/gray_E0"
-                android:clickable="false"
-                android:focusable="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/iv_calendar" />
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/field_text"
+                android:maxLength="22"
+                android:maxLines="1"
+                android:paddingLeft="15dp"
+                android:text=" Human"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
 
-            <ImageView
-                android:id="@+id/iv_calendar"
+            <!-- INI BIRTH-->
+            <TextView
+                android:id="@+id/birth"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp"
+                android:text="Birth:"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name_field" />
+
+            <!-- INI FIELD BIRTH-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/birth_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:backgroundTint="@color/gray_E0"
+                android:elevation="20dp"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/birth">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/lyt_birth"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <EditText
+                        android:id="@+id/et_birth"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="20dp"
+                        android:background="@color/gray_E0"
+                        android:textSize="18sp"
+                        android:gravity="center_vertical"
+                        android:clickable="false"
+                        android:focusable="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_calendar" />
+
+                    <ImageView
+                        android:id="@+id/iv_calendar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/calendar_icon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- INI GENDER-->
+            <TextView
+                android:id="@+id/gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp"
+                android:text="Gender:"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/birth_field" />
+
+            <TextView
+                android:id="@+id/gender_field"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/field_text"
+                android:paddingLeft="15dp"
+                android:text=" Male"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gender" />
+
+            <!-- INI EMAIL-->
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp"
+                android:text="Email:"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gender_field" />
+
+            <TextView
+                android:id="@+id/email_field"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/field_text"
+                android:paddingLeft="15dp"
+                android:text=" Human@gmail.com "
+                android:gravity="center_vertical"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email" />
+
+            <!-- INI BUTTON-->
+            <Button
+                android:id="@+id/btn_update"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/button_blue"
+                android:text="Update Profile"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email_field" />
+
+            <TextView
+                android:id="@+id/settingInformation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="25dp"
+                android:text="Setting Information:"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_update" />
+
+            <LinearLayout
+                android:id="@+id/layoutSetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settingInformation">
+
+                <TextView
+                    android:id="@+id/Languange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="2dp"
+                    android:text="Languange:"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/settingInformation" />
+
+
+                <TextView
+                    android:id="@+id/Theme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="2dp"
+                    android:text="Theme:"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bahasaBox" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutSetting2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutSetting">
+
+                <TextView
+                    android:id="@+id/bahasaBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="45dp"
+                    android:paddingLeft="1dp"
+                    android:text="English"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Languange" />
+
+                <TextView
+                    android:id="@+id/themeBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="27dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="45dp"
+                    android:paddingLeft="4dp"
+                    android:text="Light"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Theme" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="version:1.0.0 @copyright SiIngat"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutSetting2" />
+
+            <!-- INI BUTTON -->
+            <Button
+                android:id="@+id/btn_logout"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button_keluar"
+                android:text="Log Out"
+                android:textColor="@color/white"
+                app:backgroundTint="#E33B4A"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/calendar_icon" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/version" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
- <!--
-    <TextView
-        android:id="@+id/birth_field"
-        android:layout_width="324dp"
-        android:layout_height="36dp"
-        android:background="@drawable/field_text"
-        android:text=" 30 February 2022"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birth" />
-    -->
-
-    <!-- INI GENDER-->
-    <TextView
-        android:id="@+id/gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gender:"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birth_field" />
-
-    <TextView
-        android:id="@+id/gender_field"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="45dp"
-        android:background="@drawable/field_text"
-        android:text=" Male"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender" />
-
-    <!-- INI EMAIL-->
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email:"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender_field" />
-
-    <TextView
-        android:id="@+id/email_field"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/field_text"
-        android:text=" Human@gmail.com "
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="45dp"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
-
-    <!-- INI BUTTON-->
-    <Button
-        android:id="@+id/btn_update"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="15dp"
-        android:layout_width="341dp"
-        android:layout_height="38dp"
-        android:background="@drawable/button_blue"
-        android:text="Update Profile"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_field" />
-
-    <TextView
-        android:id="@+id/settingInformation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Setting Information:"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="40dp"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_update"/>
-
-    <LinearLayout
-        android:id="@+id/layoutSetting"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingInformation">
-    <TextView
-        android:id="@+id/Languange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Languange:"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingInformation" />
-
-
-    <TextView
-        android:id="@+id/Theme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Theme:"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bahasaBox" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutSetting2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutSetting">
-    <TextView
-        android:id="@+id/bahasaBox"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:textSize="18sp"
-        android:paddingLeft="1dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="45dp"
-        android:text="English"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Languange"/>
-
-        <TextView
-            android:id="@+id/themeBox"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:textSize="18sp"
-            android:paddingLeft="4dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginLeft="27dp"
-            android:layout_marginRight="45dp"
-            android:text="Light"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Theme"/>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="version:1.0.0 @copyright SiIngat"
-        android:layout_marginTop="4dp"
-        android:textSize="12sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutSetting2"/>
-
-    <!-- INI BUTTON -->
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_marginTop="15dp"
-        android:layout_width="341dp"
-        android:layout_height="38dp"
-        android:background="@drawable/button_keluar"
-        android:text="Log Out"
-        android:textColor="@color/white"
-        app:backgroundTint="#E33B4A"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_marginLeft="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/version" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

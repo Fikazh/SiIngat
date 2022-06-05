@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".EventEditActivity">
+    tools:context=".DailyEditActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="Event"
+            android:text="Daily "
             android:textSize="20sp"
             android:textAlignment="center"
             android:textColor="@color/black"/>
@@ -32,8 +32,14 @@
             android:layout_gravity="center"
             android:background="#407BFF"/>
 
+        <NumberPicker
+            android:id="@+id/numberPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
         <EditText
-            android:id="@+id/eventDescET"
+            android:id="@+id/dailyDescET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -45,20 +51,7 @@
             android:backgroundTint="#407BFF"/>
 
         <EditText
-            android:id="@+id/eventDateET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"
-            android:hint="Date"
-            android:textSize="20sp"
-            android:ems="10"
-            android:clickable="false"
-            android:focusable="false"
-            android:backgroundTint="#407BFF"/>
-
-        <EditText
-            android:id="@+id/eventTimeET"
+            android:id="@+id/dailyTimeET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -72,7 +65,7 @@
             android:backgroundTint="#407BFF"/>
 
         <CheckBox
-            android:id="@+id/priorityCB"
+            android:id="@+id/dailyPriorityCB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -93,7 +86,7 @@
             app:backgroundTint="@null"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:textStyle="bold"
-            android:onClick="saveEventAction"
+            android:onClick="saveDailyAction"
             android:layout_gravity="center"
             android:textSize="20sp"/>
 
@@ -106,7 +99,7 @@
             app:backgroundTint="@null"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:textStyle="bold"
-            android:onClick="backAction"
+            android:onClick="dailyBackAction"
             android:layout_gravity="center"
             android:textSize="20sp"
             android:layout_marginTop="10dp"/>

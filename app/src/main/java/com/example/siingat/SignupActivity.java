@@ -57,6 +57,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         //Initial Database
         database = new Database(this);
 
+
         //Firebase Auth Initial
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();

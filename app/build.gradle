@@ -6,7 +6,7 @@ plugins {
 android {
     signingConfigs {
         debug {
-            storeFile file('C:\\Users\\adita\\AndroidStudioProjects\\SiIngat\\DebugKey\\debugSiingat.keystore')
+            storeFile file('D:\\AndroidStudioProjects\\Siingat\\DebugKey\\debugSiingat.keystore')
             storePassword 'siingat2022'
             keyAlias 'androiddebugkey'
             keyPassword 'siingat2022'
@@ -64,6 +64,6 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
     //facebook
-//    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
-    implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+//    implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
 }

@@ -7,20 +7,21 @@
     tools:context=".EventEditActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="60dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="Add"
+            android:text="Event"
             android:textSize="20sp"
             android:textAlignment="center"
             android:textColor="@color/black"/>
@@ -31,51 +32,9 @@
             android:layout_gravity="center"
             android:background="#407BFF"/>
 
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            app:chipSpacingHorizontal="20dp"
-            app:singleSelection="true">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/todoChip"
-                android:text="ToDo"
-                android:textSize="20sp"
-                app:chipMinHeight="40dp"
-                app:chipStartPadding="10dp"
-                app:chipEndPadding="10dp"
-                style="@style/CustomChipStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/meetChip"
-                android:text="Meet"
-                android:textSize="20sp"
-                app:chipMinHeight="40dp"
-                app:chipStartPadding="10dp"
-                app:chipEndPadding="10dp"
-                style="@style/CustomChipStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/eventChip"
-                android:text="Event"
-                android:textSize="20sp"
-                app:chipMinHeight="40dp"
-                app:chipStartPadding="10dp"
-                app:chipEndPadding="10dp"
-                style="@style/CustomChipStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.chip.ChipGroup>
-
         <EditText
             android:id="@+id/eventDescET"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
@@ -87,7 +46,7 @@
 
         <EditText
             android:id="@+id/eventDateET"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
@@ -100,7 +59,7 @@
 
         <EditText
             android:id="@+id/eventTimeET"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
@@ -125,7 +84,7 @@
             android:buttonTint="#407BFF"/>
 
         <Button
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save"
@@ -149,7 +108,8 @@
             android:textStyle="bold"
             android:onClick="backAction"
             android:layout_gravity="center"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

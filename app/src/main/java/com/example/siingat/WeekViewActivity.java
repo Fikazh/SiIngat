@@ -72,13 +72,6 @@ public class WeekViewActivity extends AppCompatActivity implements CalendarAdapt
         setWeekView();
     }
 
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        setEventAdapter();
-    }
-
     private void setEventAdapter()
     {
         ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);

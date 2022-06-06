@@ -1,12 +1,16 @@
 package com.example.siingat;
 
 import android.animation.LayoutTransition;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
@@ -14,6 +18,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +34,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     LinearLayoutCompat eventDetails, dailyDetails;
     ConstraintLayout eventLayout, dailyLayout;
     ImageView eventDown, dailyDown;
+
+    private ListView dailyListView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,9 +97,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         eventDown = view.findViewById(R.id.event_down);
         eventLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
 
+        dailyListView = view.findViewById(R.id.dailyListView);
+
+
         return view;
     }
 
+    private void setDailyAdapter() {
+        ArrayList<Event> dailyEvents = Event.dailyForDay();
+        EventAdapter eventAdapter = new EventAdapter(getActivity().getApplicationContext(), dailyEvents);
+        dailyListView.setAdapter(eventAdapter);
+    }
 
     @Override
     public void onClick(View view) {

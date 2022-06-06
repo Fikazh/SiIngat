@@ -160,7 +160,10 @@ public class MenuAkunActivity extends AppCompatActivity implements View.OnClickL
                                     c.moveToNext();
                                     Log.d("Update Profile", "DocumentSnapshot successfully updated!");
                                     Toast.makeText(getApplicationContext(),"Update Success",Toast.LENGTH_LONG).show();
-                                    startActivity(new Intent(getApplicationContext(), MenuAkunActivity.class));
+                                    finish();
+                                    overridePendingTransition(0, 0);
+                                    startActivity(getIntent());
+                                    overridePendingTransition(0, 0);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {

@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -70,7 +72,7 @@ public class EventEditActivity extends AppCompatActivity
         SimpleDateFormat shortDateFormat = new SimpleDateFormat(sFormat, Locale.US);
         date = shortDateFormat.format(myCalendar.getTime());
 
-        String myFormat = "EEE, d MMM yyyy";
+        String myFormat = "EEEE, d MMM yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.US);
         eventDateET.setText(dateFormat.format(myCalendar.getTime()));
     }

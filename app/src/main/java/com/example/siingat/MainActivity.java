@@ -1,10 +1,13 @@
 package com.example.siingat;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,7 +19,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton addPlus;
     private BottomNavigationView bottomNavigationView;
     private CircleImageView civProfile;
+
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
-        NavController navController = navHostFragment.getNavController();
+        navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
         addPlus = findViewById(R.id.fab);
@@ -122,5 +129,23 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, EventEditActivity.class));
             }
         });
+
+        addDaily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                Intent intent = new Intent(MainActivity.this, DailyEditActivity.class);
+                startActivityForResult(intent, 10001);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == 10001) && (resultCode == Activity.RESULT_OK))
+        {
+            Toast.makeText(getApplicationContext(),"Activity Finished",Toast.LENGTH_SHORT).show();
+        }
     }
 }

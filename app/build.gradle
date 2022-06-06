@@ -4,6 +4,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\adita\\AndroidStudioProjects\\SiIngat\\DebugKey\\debugSiingat.keystore')
+            storePassword 'siingat2022'
+            keyAlias 'androiddebugkey'
+            keyPassword 'siingat2022'
+        }
+    }
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
@@ -57,5 +65,5 @@ dependencies {
 
     //facebook
 //    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
-    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
 }

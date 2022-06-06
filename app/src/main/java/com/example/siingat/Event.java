@@ -22,23 +22,6 @@ public class Event
         return events;
     }
 
-    public static ArrayList<Event> dailyForDay()
-    {
-        LocalDate date = LocalDate.now();
-        String today = date.format(DateTimeFormatter.ofPattern("EEEE"));
-
-        ArrayList<Event> dailies = new ArrayList<>();
-
-        for(Event daily : eventsList)
-        {
-            if(daily.getDay().equals(today))
-                dailies.add(daily);
-        }
-
-        return dailies;
-    }
-
-
     private String name, day;
     private LocalDate date;
     private LocalTime time;
@@ -52,29 +35,12 @@ public class Event
         this.time = time;
     }
 
-    //Daily constructor
-    public Event(String day, String name, LocalTime time, boolean priority)
-    {
-        this.day = day;
-        this.name = name;
-        this.time = time;
-        this.priority = priority;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDay() {
-        return day;
-    }
-
-    public void setDay(String day) {
-        this.day = day;
     }
 
     public LocalDate getDate() {

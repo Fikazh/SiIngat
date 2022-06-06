@@ -76,6 +76,7 @@ public class DailyEditActivity extends AppCompatActivity {
         numberPicker.setMinValue(0);
         numberPicker.setDisplayedValues(DaysObject.daysObjectNames());
 
+        selectedDay = "Monday";
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
@@ -125,8 +126,8 @@ public class DailyEditActivity extends AppCompatActivity {
 
         LocalTime dailyTime = LocalTime.parse(time);
 
-        Event newDaily = new Event(selectedDay, dailyName, dailyTime, isPriority);
-        Event.eventsList.add(newDaily);
+        Daily newDaily = new Daily(selectedDay, dailyName, dailyTime, isPriority);
+        Daily.dailiesList.add(newDaily);
 
         //SQLite
         try {
@@ -169,10 +170,11 @@ public class DailyEditActivity extends AppCompatActivity {
                         }
                     });
 
-            Toast.makeText(getApplicationContext(), "Data tersimpan", Toast.LENGTH_LONG).show();
+
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Data Error", Toast.LENGTH_LONG).show();
         }
+        setResult(Activity.RESULT_OK);
         finish();
     }
 

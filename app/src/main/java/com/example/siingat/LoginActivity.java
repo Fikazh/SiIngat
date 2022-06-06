@@ -45,11 +45,17 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -176,7 +182,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             result.getPendingIntent().getIntentSender(), REQ_ONE_TAP_GENERAL,
                                             null, 0, 0, 0);
                                 } catch (IntentSender.SendIntentException e) {
-                                    Toast.makeText(getApplicationContext(),"Masukkan Dial *#*#66382723#*#*", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Masukkan Dial *#*#66382723#*#*", Toast.LENGTH_LONG).show();
                                     Log.e("ONE TAP", "Couldn't start One Tap UI: " + e.getLocalizedMessage());
                                 }
                             }

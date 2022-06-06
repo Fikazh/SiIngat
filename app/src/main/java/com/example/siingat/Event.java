@@ -1,6 +1,5 @@
 package com.example.siingat;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -43,7 +42,7 @@ public class Event
     private String name, day;
     private LocalDate date;
     private LocalTime time;
-    private boolean isPriority;
+    private boolean priority;
 
     //Event constructor
     public Event(String name, LocalDate date, LocalTime time)
@@ -59,37 +58,15 @@ public class Event
         this.day = day;
         this.name = name;
         this.time = time;
-        this.isPriority = priority;
+        this.priority = priority;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
-    }
-
-    public LocalDate getDate()
-    {
-        return date;
-    }
-
-    public void setDate(LocalDate date)
-    {
-        this.date = date;
-    }
-
-    public LocalTime getTime()
-    {
-        return time;
-    }
-
-    public void setTime(LocalTime time)
-    {
-        this.time = time;
     }
 
     public String getDay() {
@@ -100,11 +77,27 @@ public class Event
         this.day = day;
     }
 
-    public boolean isPriority() {
-        return isPriority;
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public int isPriority() {
+        return Boolean.compare(priority, false);
     }
 
     public void setPriority(boolean priority) {
-        isPriority = priority;
+        this.priority = priority;
     }
 }

@@ -1,12 +1,16 @@
 package com.example.siingat;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -14,13 +18,33 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
-public class DailyEditActivity extends AppCompatActivity
-{
+public class DailyEditActivity extends AppCompatActivity {
+    //SQLite
+    private Database database;
+
+    //Firebase
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private FirebaseFirestore dbFire;
+
+    //Local Java
+    private User usr;
+
     private EditText dailyDescET;
     private TextView dailyTimeET;
     private CheckBox dailyPriorityCheck;
@@ -39,8 +63,16 @@ public class DailyEditActivity extends AppCompatActivity
         setContentView(R.layout.activity_daily_edit);
         initWidgets();
 
+        //Initial Database
+        database = new Database(this);
+
+        //Firebase Auth Initial
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        dbFire = FirebaseFirestore.getInstance();
+
         DaysObject.initDaysObject();
-        numberPicker.setMaxValue(DaysObject.getDaysArrayList().size()-1);
+        numberPicker.setMaxValue(DaysObject.getDaysArrayList().size() - 1);
         numberPicker.setMinValue(0);
         numberPicker.setDisplayedValues(DaysObject.daysObjectNames());
 
@@ -53,8 +85,7 @@ public class DailyEditActivity extends AppCompatActivity
 
     }
 
-    private void initWidgets()
-    {
+    private void initWidgets() {
         dailyDescET = findViewById(R.id.dailyDescET);
         dailyTimeET = findViewById(R.id.dailyTimeET);
         dailyPriorityCheck = findViewById(R.id.dailyPriorityCB);
@@ -79,11 +110,10 @@ public class DailyEditActivity extends AppCompatActivity
     }
 
     public void onCheckboxClicked(View view) {
-        if (dailyPriorityCheck.isChecked()){
+        if (dailyPriorityCheck.isChecked()) {
             dailyPriorityCheck.setText("Prioritized");
             isPriority = true;
-        }
-        else {
+        } else {
             dailyPriorityCheck.setText("Set as priority?");
             isPriority = false;
         }
@@ -97,6 +127,52 @@ public class DailyEditActivity extends AppCompatActivity
 
         Event newDaily = new Event(selectedDay, dailyName, dailyTime, isPriority);
         Event.eventsList.add(newDaily);
+
+        //SQLite
+        try {
+
+            // Create a Dailies object for firebase
+            Map<String, Object> dailies = new HashMap<>();
+            dailies.put("Day", newDaily.getDay());
+            dailies.put("Time", newDaily.getTime());
+            dailies.put("Description", newDaily.getName());
+            dailies.put("Priority", newDaily.isPriority());
+
+            // Add a new document with a generated ID
+            dbFire.collection("users")
+                    .document(currentUser.getUid())
+                    .collection("Dailies")
+                    .add(dailies)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("Firestore", "DocumentSnapshot successfully written!");
+                            try {
+                                SQLiteDatabase db = database.getWritableDatabase();
+                                db.execSQL("insert into Dailies(ID_DAILY, UID, Day, Time, Description, Priority) values ('" +
+                                        documentReference.getId() + "','" +
+                                        currentUser.getUid() + "','" +
+                                        newDaily.getDay()+ "','"+
+                                        newDaily.getTime().toString()+"','"+
+                                        newDaily.getName()+"','" +
+                                        newDaily.isPriority()+"')");
+                                Log.d("Sqlite", "Stored Data Success");
+                            }catch (Exception e){
+                                Log.d("Sqlite", "Data has been stored");
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("Firestore", "Error adding document", e);
+                        }
+                    });
+
+            Toast.makeText(getApplicationContext(), "Data tersimpan", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Data Error", Toast.LENGTH_LONG).show();
+        }
         finish();
     }
 
@@ -106,9 +182,10 @@ public class DailyEditActivity extends AppCompatActivity
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         date = sdf.format(c.getTime());
 
-        Toast.makeText(getApplicationContext(),"Today is: " + date,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Today is: " + date, Toast.LENGTH_SHORT).show();
         setResult(Activity.RESULT_OK);
         //Masih buat coba-coba
         finish();
     }
+
 }

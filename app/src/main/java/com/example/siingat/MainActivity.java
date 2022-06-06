@@ -1,5 +1,6 @@
 package com.example.siingat;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -23,15 +24,22 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -67,10 +75,11 @@ public class MainActivity extends AppCompatActivity {
         //SQLite initial
         database = new Database(this);
         SQLiteDatabase db = database.getReadableDatabase();
+
         //Get Data from SQLite
-        Cursor c = db.rawQuery("SELECT * FROM Users WHERE TRIM(UID) = '"+ currentUser.getUid().toString().trim() +"'", null);
+        Cursor c = db.rawQuery("SELECT * FROM Users WHERE TRIM(UID) = '" + currentUser.getUid().toString().trim() + "'", null);
         c.moveToNext();
-        Log.d("Data select","UID : " + c.getString(c.getColumnIndex("UID")));
+        Log.d("Data select", "UID : " + c.getString(c.getColumnIndex("UID")));
 
         //User object initial
         usr = new User();
@@ -105,9 +114,31 @@ public class MainActivity extends AppCompatActivity {
                 showDialog();
             }
         });
+
+        dbFire = FirebaseFirestore.getInstance();
+        DocumentReference docRef = dbFire.collection("Dailies").document("uK9kFfbfR3tdcJmsDBwI");
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    Log.d("TAMPIL DAILIES", String.valueOf(document.getData()));
+//                }
+//            }
+//        });
+        dbFire.collectionGroup("Dailies").whereEqualTo("Priority",1)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<DocumentSnapshot> queryDocumentSnapshots = task.getResult().getDocuments();
+                Log.d("Tampil Dailies", String.valueOf(queryDocumentSnapshots.get(0).getData()));
+                Log.d("Tampil Dailies", String.valueOf(queryDocumentSnapshots.get(1).getData()));
+                Log.d("Tampil Dailies", String.valueOf(queryDocumentSnapshots.get(1).getId()));
+            }
+        });
     }
 
-    private void showDialog(){
+    private void showDialog() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.fab_dialog);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -143,9 +174,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if ((requestCode == 10001) && (resultCode == Activity.RESULT_OK))
-        {
-            Toast.makeText(getApplicationContext(),"Activity Finished",Toast.LENGTH_SHORT).show();
+        if ((requestCode == 10001) && (resultCode == Activity.RESULT_OK)) {
+            Toast.makeText(getApplicationContext(), "Activity Finished", Toast.LENGTH_SHORT).show();
         }
     }
 }

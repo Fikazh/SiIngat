@@ -22,7 +22,7 @@ public class Event
         return events;
     }
 
-    private String name, day;
+    private String name;
     private LocalDate date;
     private LocalTime time;
     private boolean priority;

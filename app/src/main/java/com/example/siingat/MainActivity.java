@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                                     Log.d("Boolean Convert", "failed");
                                 }
 
-                                Event newDaily = new Event(document.get(i).getData().get("Day").toString(),
+                                Daily newDaily = new Daily(document.get(i).getData().get("Day").toString(),
                                         document.get(i).getData().get("Description").toString(),
                                         localtime,
                                         blPriority);

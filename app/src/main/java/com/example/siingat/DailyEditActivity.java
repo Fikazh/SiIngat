@@ -179,14 +179,6 @@ public class DailyEditActivity extends AppCompatActivity {
     }
 
     public void dailyBackAction(View view) {
-        //Masih buat coba-coba
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-        date = sdf.format(c.getTime());
-
-        Toast.makeText(getApplicationContext(), "Today is: " + date, Toast.LENGTH_SHORT).show();
-        setResult(Activity.RESULT_OK);
-        //Masih buat coba-coba
         finish();
     }
 

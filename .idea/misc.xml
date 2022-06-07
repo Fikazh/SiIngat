@@ -48,6 +48,12 @@
         <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/fragment_kalender_awal.xml" value="0.25" />
         <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/layout/fragment_kalender_detail.xml" value="0.22" />
         <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
+<<<<<<< HEAD
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1035" />
+        <entry key="..\:/Users/adita/AndroidStudioProjects/SiIngat/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1035" />
+        <entry key="..\:/android stuff/SiIngat/app/src/main/res/layout/activity_main.xml" value="0.38697916666666665" />
+=======
+>>>>>>> b73cb7e716d26a90daed5109a7f0e923438fc6ef
       </map>
     </option>
   </component>

@@ -126,7 +126,7 @@ public class DailyEditActivity extends AppCompatActivity {
 
         LocalTime dailyTime = LocalTime.parse(time);
 
-        Daily newDaily = new Daily(selectedDay, dailyName, dailyTime, isPriority);
+        Daily newDaily = new Daily(dailyName, selectedDay,dailyTime, isPriority);
 
         if (newDaily.getTime().isAfter(LocalTime.now())){
             Daily.dailiesList.add(newDaily);

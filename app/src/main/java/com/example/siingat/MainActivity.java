@@ -182,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db = database.getReadableDatabase();
         cloudDailies(db);
         cloudEvents(db);
+
     }
 
     public void cloudDailies(SQLiteDatabase db) {

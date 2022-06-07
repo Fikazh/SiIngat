@@ -27,6 +27,7 @@ public class Event
     private LocalTime time;
     private boolean priority;
 
+
     //Event constructor
     public Event(String name, LocalDate date, LocalTime time)
     {

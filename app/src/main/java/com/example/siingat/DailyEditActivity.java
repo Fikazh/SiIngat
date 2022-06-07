@@ -135,7 +135,7 @@ public class DailyEditActivity extends AppCompatActivity {
             // Create a Dailies object for firebase
             Map<String, Object> dailies = new HashMap<>();
             dailies.put("Day", newDaily.getDay());
-            dailies.put("Time", newDaily.getTime());
+            dailies.put("Time", newDaily.getTime().toString());
             dailies.put("Description", newDaily.getName());
             dailies.put("Priority", newDaily.isPriority());
 

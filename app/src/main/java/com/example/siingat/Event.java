@@ -5,17 +5,14 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class Event
-{
+public class Event {
     public static ArrayList<Event> eventsList = new ArrayList<>();
 
-    public static ArrayList<Event> eventsForDate(LocalDate date)
-    {
+    public static ArrayList<Event> eventsForDate(LocalDate date) {
         ArrayList<Event> events = new ArrayList<>();
 
-        for(Event event : eventsList)
-        {
-            if(event.getDate().equals(date))
+        for (Event event : eventsList) {
+            if (event.getDate().equals(date))
                 events.add(event);
         }
 
@@ -29,11 +26,11 @@ public class Event
 
 
     //Event constructor
-    public Event(String name, LocalDate date, LocalTime time)
-    {
+    public Event(String name, LocalDate date, LocalTime time, boolean priority) {
         this.name = name;
         this.date = date;
         this.time = time;
+        this.priority = priority;
     }
 
     public String getName() {

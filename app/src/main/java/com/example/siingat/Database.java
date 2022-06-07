@@ -25,6 +25,15 @@ public class Database extends SQLiteOpenHelper {
             "Description TEXT null," +
             "Priority INTEGER DEFAULT 0);";
 
+    private static final String CREATE_TABLE_EVENT = "create table " +
+            "Events" +
+            "(ID_EVENT TEXT PRIMARY KEY," +
+            "UID TEXT FORGEIN KEY," +
+            "Date TEXT null, " +
+            "Time TEXT null, " +
+            "Description TEXT null," +
+            "Priority INTEGER DEFAULT 0);";
+
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -35,6 +44,8 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_USER);
         Log.d("Data","onCreate: " + CREATE_TABLE_DAILY);
         db.execSQL(CREATE_TABLE_DAILY);
+        Log.d("Data","onCreate: " + CREATE_TABLE_EVENT);
+        db.execSQL(CREATE_TABLE_EVENT);
     }
 
     @Override

@@ -214,6 +214,9 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if ((requestCode == 10001) && (resultCode == Activity.RESULT_OK)) {
             Toast.makeText(getApplicationContext(), "Activity Finished", Toast.LENGTH_SHORT).show();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
+            overridePendingTransition(0, 0);
         }
     }
 }

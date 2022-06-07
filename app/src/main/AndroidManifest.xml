@@ -12,9 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SiIngat">
         <activity
-            android:name=".DailyEditActivity"
+            android:name=".Testing"
             android:exported="false" />
-        <!-- FACEBOOK MANIFEST -->
+        <activity
+            android:name=".DailyEditActivity"
+            android:exported="false" /> <!-- FACEBOOK MANIFEST -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

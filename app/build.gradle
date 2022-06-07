@@ -6,7 +6,7 @@ plugins {
 android {
     signingConfigs {
         debug {
-            storeFile file('D:\\AndroidStudioProjects\\Siingat\\DebugKey\\debugSiingat.keystore')
+            storeFile file('C:\\Users\\adita\\AndroidStudioProjects\\SiIngat\\DebugKey\\debugSiingat.keystore')
             storePassword 'siingat2022'
             keyAlias 'androiddebugkey'
             keyPassword 'siingat2022'

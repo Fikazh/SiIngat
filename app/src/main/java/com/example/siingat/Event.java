@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Event {
     public static ArrayList<Event> eventsList = new ArrayList<>();
@@ -16,10 +18,18 @@ public class Event {
                 events.add(event);
         }
 
+        Collections.sort(events, new Comparator<Event>() {
+
+            @Override
+            public int compare(Event e1, Event e2) {
+                return e1.getTime().compareTo(e2.getTime());
+            }
+        });
+
         return events;
     }
 
-    private String name, day;
+    private String name;
     private LocalDate date;
     private LocalTime time;
     private boolean priority;

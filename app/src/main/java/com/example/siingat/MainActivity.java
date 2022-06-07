@@ -120,9 +120,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Show Arrylist
+        //Show Daily Arraylist
         if (Daily.dailiesList.isEmpty() == true) {
             showDailiesMain();
+        }
+
+        //Show Event Arraylist
+        if (Event.eventsList.isEmpty() == true) {
+            showEventsMain();
         }
     }
 
@@ -322,6 +327,35 @@ public class MainActivity extends AppCompatActivity {
 
             if (newDailies.getTime().isAfter(LocalTime.now())) {
                 Daily.dailiesList.add(newDailies);
+            }
+
+            c.moveToNext();
+        }
+    }
+
+    public void showEventsMain() {
+        //if SQLite with UID not null run this
+        SQLiteDatabase db = database.getReadableDatabase();
+
+        //Read SQLite Dailies
+        Cursor c = db.rawQuery("SELECT * FROM Events WHERE TRIM(UID) = '" + currentUser.getUid().trim() + "'", null);
+        c.moveToNext();
+
+
+        //Convert to Arrylist
+        for (int i = 0; i < c.getCount(); i++) {
+
+
+            //Conver String to Localtime and boolean variabel
+            LocalTime localtime = LocalTime.parse(c.getString(3));
+            LocalDate localDate = LocalDate.parse(c.getString(2));
+            boolean blPriority = booleanConverter(c.getString(5));
+
+            //make object
+            Event newEvents = new Event(c.getString(4), localDate, localtime, blPriority);
+
+            if (newEvents.getDate().isAfter(LocalDate.now())) {
+                Event.eventsList.add(newEvents);
             }
 
             c.moveToNext();

@@ -4,6 +4,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storePassword 'siingat2022'
+            storeFile file('D:\\android stuff\\SiIngat\\DebugKey\\debugSiingat.keystore')
+            keyAlias 'androiddebugkey'
+            keyPassword 'siingat2022'
+        }
+    }
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
 

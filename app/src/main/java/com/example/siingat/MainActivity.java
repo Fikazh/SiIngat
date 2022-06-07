@@ -120,60 +120,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //if SQLite with UID not null run this
-        SQLiteDatabase dbread = database.getReadableDatabase();
-
-        //Backup Cloud to SQLite
-        Cursor cc = db.rawQuery("SELECT * FROM Dailies WHERE TRIM(UID) = '" + currentUser.getUid().trim() + "'", null);
-        cc.moveToNext();
-        if(cc.getCount() == 0){
-            try {
-                dbFire = FirebaseFirestore.getInstance();
-                CollectionReference docRef = dbFire.collection("users").document(currentUser.getUid()).collection("Dailies");
-                docRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            List<DocumentSnapshot> document = task.getResult().getDocuments();
-                            for (int i = 0; i < document.size(); i++) {
-                                //default, ISO_LOCAL_DATE
-                                LocalTime localtime = LocalTime.parse(document.get(i).getData().get("Time").toString());
-                                String strPriority = document.get(i).getData().get("Priority").toString();
-
-                                //Boolean converter
-                                Boolean blPriority = false;
-                                if (strPriority.equals("1")) {
-                                    blPriority = true;
-                                } else if (strPriority.equals("0")) {
-                                    blPriority = false;
-                                } else {
-                                    Log.d("Boolean Convert", "failed");
-                                }
-
-                                Event newDaily = new Event(document.get(i).getData().get("Day").toString(),
-                                        document.get(i).getData().get("Description").toString(),
-                                        localtime,
-                                        blPriority);
-
-                                SQLiteDatabase db = database.getWritableDatabase();
-                                db.execSQL("insert into Dailies(ID_DAILY, UID, Day, Time, Description, Priority) values ('" +
-                                        document.get(i).getId() + "','" +
-                                        currentUser.getUid() + "','" +
-                                        newDaily.getDay() + "','" +
-                                        newDaily.getTime().toString() + "','" +
-                                        newDaily.getName() + "','" +
-                                        newDaily.isPriority() + "')");
-                            }
-                        }
-                    }
-                });
-                Log.d("Sqlite", "Stored Data Dailies Success");
-            }catch (Exception ex){
-                Log.d("Sqlite", "Stored Data Dailies Failed");
-            }
-        }else{
-            Log.d("Sqlite", "Data Dailies has Stored");
+        //Show Arrylist
+        if (Daily.dailiesList.isEmpty() == true){
+            showDailiesMain();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //import Data dailies and Event on Cloud to SQLite
+        importCloudtoSQLite();
     }
 
     private void showDialog() {
@@ -218,5 +175,101 @@ public class MainActivity extends AppCompatActivity {
             startActivity(getIntent());
             overridePendingTransition(0, 0);
         }
+    }
+
+    public void importCloudtoSQLite(){
+        //if SQLite with UID not null run this
+        SQLiteDatabase db = database.getReadableDatabase();
+
+        //Backup Cloud to SQLite
+        Cursor cc = db.rawQuery("SELECT * FROM Dailies WHERE TRIM(UID) = '" + currentUser.getUid().trim() + "'", null);
+        cc.moveToNext();
+        if (cc.getCount() == 0) {
+            try {
+                dbFire = FirebaseFirestore.getInstance();
+                CollectionReference docRef = dbFire.collection("users").document(currentUser.getUid()).collection("Dailies");
+                docRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<DocumentSnapshot> document = task.getResult().getDocuments();
+                            for (int i = 0; i < document.size(); i++) {
+
+                                //default, ISO_LOCAL_DATE
+                                LocalTime localtime = LocalTime.parse(document.get(i).getData().get("Time").toString());
+
+                                //Boolean Convert
+                                String strPriority = document.get(i).getData().get("Priority").toString();
+                                boolean blPriority = booleanConverter(strPriority);
+
+                                Daily newDaily = new Daily(document.get(i).getData().get("Day").toString(),
+                                        document.get(i).getData().get("Description").toString(),
+                                        localtime,
+                                        blPriority);
+
+                                SQLiteDatabase db = database.getWritableDatabase();
+                                db.execSQL("insert into Dailies(ID_DAILY, UID, Day, Time, Description, Priority) values ('" +
+                                        document.get(i).getId() + "','" +
+                                        currentUser.getUid() + "','" +
+                                        newDaily.getDay() + "','" +
+                                        newDaily.getTime().toString() + "','" +
+                                        newDaily.getName() + "','" +
+                                        newDaily.isPriority() + "')");
+                            }
+                            overridePendingTransition(0, 0);
+                            startActivity(getIntent());
+                            overridePendingTransition(0, 0);
+                        }
+                    }
+                });
+                Log.d("Sqlite", "Stored Data Dailies Success");
+            } catch (Exception ex) {
+                Log.d("Sqlite", "Stored Data Dailies Failed");
+            }
+        } else {
+            Log.d("Sqlite", "Data Dailies has Stored");
+        }
+    }
+
+    public void showDailiesMain() {
+        //if SQLite with UID not null run this
+        SQLiteDatabase db = database.getReadableDatabase();
+
+        //Read SQLite Dailies
+        Cursor c = db.rawQuery("SELECT * FROM Dailies WHERE TRIM(UID) = '" + currentUser.getUid().trim() + "'", null);
+        c.moveToNext();
+
+
+        //Convert to Arrylist
+        for (int i = 0; i < c.getCount(); i++) {
+
+
+            //Conver String to Localtime and boolean variabel
+            LocalTime localtime = LocalTime.parse(c.getString(3));
+            boolean blPriority = booleanConverter(c.getString(5));
+
+            //make object
+            Daily newDailies = new Daily(c.getString(2), c.getString(4)
+                    , localtime, blPriority);
+
+            if (newDailies.getTime().isAfter(LocalTime.now())){
+                Daily.dailiesList.add(newDailies);
+            }
+
+            c.moveToNext();
+        }
+    }
+
+    public boolean booleanConverter(String strPriority) {
+        //Boolean converter
+        Boolean blPriority = false;
+        if (strPriority.equals("1")) {
+            blPriority = true;
+        } else if (strPriority.equals("0")) {
+            blPriority = false;
+        } else {
+            Log.d("Boolean Convert", "failed");
+        }
+        return blPriority;
     }
 }

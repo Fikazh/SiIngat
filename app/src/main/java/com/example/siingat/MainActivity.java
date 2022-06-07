@@ -25,8 +25,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     //Database
     private Database database;
 
-    private TextView date, tvName;
+    private TextView date, tvName, day;
     private FloatingActionButton addPlus;
     private BottomNavigationView bottomNavigationView;
     private CircleImageView civProfile;
@@ -82,8 +85,11 @@ public class MainActivity extends AppCompatActivity {
         tvName.setText("Hi, " + usr.getName());
 
         date = findViewById(R.id.date);
+        day = findViewById(R.id.day);
         Date currentTime = Calendar.getInstance().getTime();
+        String Day = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(currentTime.getTime());
         String formattedDate = DateFormat.getDateInstance(DateFormat.LONG).format(currentTime);
+        day.setText(Day);
         date.setText(formattedDate);
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);

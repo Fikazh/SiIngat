@@ -134,59 +134,68 @@ public class EventEditActivity extends AppCompatActivity {
 
     public void saveEventAction(View view) {
         String eventName = eventDescET.getText().toString();
+        if (eventName.isEmpty()) {
+            eventDescET.setError("Cannot be Empty");
+        } else if (eventName.length() >= 30) {
+            eventDescET.setError("Maximum 30 characters");
+        } else if (eventDateET.getText().toString().isEmpty()) {
+            eventDateET.setError("Cannot be Empty");
+        } else if (eventTimeET.getText().toString().isEmpty()) {
+            eventTimeET.setError("Cannot be Empty");
+        } else {
+            LocalDate eventDate = LocalDate.parse(date);
 
-        LocalDate eventDate = LocalDate.parse(date);
+            LocalTime eventTime = LocalTime.parse(time);
 
-        LocalTime eventTime = LocalTime.parse(time);
+            Event newEvent = new Event(eventName, eventDate, eventTime, isPriority);
+            Event.eventsList.add(newEvent);
 
-        Event newEvent = new Event(eventName, eventDate, eventTime, isPriority);
-        Event.eventsList.add(newEvent);
+            try {
+                // Create a Dailies object for firebase
+                Map<String, Object> dailies = new HashMap<>();
+                dailies.put("Description", newEvent.getName());
+                dailies.put("Date", newEvent.getDate().toString());
+                dailies.put("Time", newEvent.getTime().toString());
+                dailies.put("Priority", newEvent.isPriority());
 
-        try {
-            // Create a Dailies object for firebase
-            Map<String, Object> dailies = new HashMap<>();
-            dailies.put("Description", newEvent.getName());
-            dailies.put("Date", newEvent.getDate().toString());
-            dailies.put("Time", newEvent.getTime().toString());
-            dailies.put("Priority", newEvent.isPriority());
-
-            // Add a new document with a generated ID
-            dbFire.collection("users")
-                    .document(currentUser.getUid())
-                    .collection("Events")
-                    .add(dailies)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Log.d("Firestore", "DocumentSnapshot successfully written!");
-                            try {
-                                //SQLite
-                                SQLiteDatabase db = database.getWritableDatabase();
-                                db.execSQL("insert into Events(ID_EVENT, UID, Date, Time, Description, Priority) values ('" +
-                                        documentReference.getId() + "','" +
-                                        currentUser.getUid() + "','" +
-                                        newEvent.getDate().toString()+ "','"+
-                                        newEvent.getTime().toString()+"','"+
-                                        newEvent.getName()+"','" +
-                                        newEvent.isPriority()+"')");
-                                Log.d("Sqlite", "Stored Data Success");
-                            }catch (Exception e){
-                                Log.d("Sqlite", "Data has been stored");
+                // Add a new document with a generated ID
+                dbFire.collection("users")
+                        .document(currentUser.getUid())
+                        .collection("Events")
+                        .add(dailies)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d("Firestore", "DocumentSnapshot successfully written!");
+                                try {
+                                    //SQLite
+                                    SQLiteDatabase db = database.getWritableDatabase();
+                                    db.execSQL("insert into Events(ID_EVENT, UID, Date, Time, Description, Priority) values ('" +
+                                            documentReference.getId() + "','" +
+                                            currentUser.getUid() + "','" +
+                                            newEvent.getDate().toString() + "','" +
+                                            newEvent.getTime().toString() + "','" +
+                                            newEvent.getName() + "','" +
+                                            newEvent.isPriority() + "')");
+                                    Log.d("Sqlite", "Stored Data Success");
+                                } catch (Exception e) {
+                                    Log.d("Sqlite", "Data has been stored");
+                                }
                             }
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w("Firestore", "Error adding document", e);
-                        }
-                    });
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("Firestore", "Error adding document", e);
+                            }
+                        });
 
 
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Data Error", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), "Data Error", Toast.LENGTH_LONG).show();
+            }
+            finish();
         }
-        finish();
     }
 
     public void backAction(View view) {

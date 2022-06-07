@@ -122,63 +122,73 @@ public class DailyEditActivity extends AppCompatActivity {
 
     public void saveDailyAction(View view) {
 
+
         String dailyName = dailyDescET.getText().toString();
 
-        LocalTime dailyTime = LocalTime.parse(time);
+        if (dailyName.isEmpty()){
+            dailyDescET.setError("Cannot be Empty");
+        }else if (dailyName.length() >= 30){
+            dailyDescET.setError("Maximum 30 characters");
+        }else if (dailyTimeET.getText().toString().isEmpty()){
+            dailyTimeET.setError("Cannot be Empty");
+        }else {
+            LocalTime dailyTime = LocalTime.parse(time);
 
-        Daily newDaily = new Daily(dailyName, selectedDay,dailyTime, isPriority);
+            Daily newDaily = new Daily(dailyName, selectedDay,dailyTime, isPriority);
 
-        if (newDaily.getTime().isAfter(LocalTime.now())){
-            Daily.dailiesList.add(newDaily);
-        }
+            if (newDaily.getTime().isAfter(LocalTime.now())){
+                Daily.dailiesList.add(newDaily);
+            }
 
-        //SQLite
-        try {
+            //SQLite
+            try {
 
-            // Create a Dailies object for firebase
-            Map<String, Object> dailies = new HashMap<>();
-            dailies.put("Day", newDaily.getDay());
-            dailies.put("Time", newDaily.getTime().toString());
-            dailies.put("Description", newDaily.getName());
-            dailies.put("Priority", newDaily.isPriority());
+                // Create a Dailies object for firebase
+                Map<String, Object> dailies = new HashMap<>();
+                dailies.put("Day", newDaily.getDay());
+                dailies.put("Time", newDaily.getTime().toString());
+                dailies.put("Description", newDaily.getName());
+                dailies.put("Priority", newDaily.isPriority());
 
-            // Add a new document with a generated ID
-            dbFire.collection("users")
-                    .document(currentUser.getUid())
-                    .collection("Dailies")
-                    .add(dailies)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Log.d("Firestore", "DocumentSnapshot successfully written!");
-                            try {
-                                SQLiteDatabase db = database.getWritableDatabase();
-                                db.execSQL("insert into Dailies(ID_DAILY, UID, Day, Time, Description, Priority) values ('" +
-                                        documentReference.getId() + "','" +
-                                        currentUser.getUid() + "','" +
-                                        newDaily.getDay()+ "','"+
-                                        newDaily.getTime().toString()+"','"+
-                                        newDaily.getName()+"','" +
-                                        newDaily.isPriority()+"')");
-                                Log.d("Sqlite", "Stored Data Success");
-                            }catch (Exception e){
-                                Log.d("Sqlite", "Data has been stored");
+                // Add a new document with a generated ID
+                dbFire.collection("users")
+                        .document(currentUser.getUid())
+                        .collection("Dailies")
+                        .add(dailies)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d("Firestore", "DocumentSnapshot successfully written!");
+                                try {
+                                    SQLiteDatabase db = database.getWritableDatabase();
+                                    db.execSQL("insert into Dailies(ID_DAILY, UID, Day, Time, Description, Priority) values ('" +
+                                            documentReference.getId() + "','" +
+                                            currentUser.getUid() + "','" +
+                                            newDaily.getDay()+ "','"+
+                                            newDaily.getTime().toString()+"','"+
+                                            newDaily.getName()+"','" +
+                                            newDaily.isPriority()+"')");
+                                    Log.d("Sqlite", "Stored Data Success");
+                                }catch (Exception e){
+                                    Log.d("Sqlite", "Data has been stored");
+                                }
                             }
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w("Firestore", "Error adding document", e);
-                        }
-                    });
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("Firestore", "Error adding document", e);
+                            }
+                        });
 
 
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Data Error", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), "Data Error", Toast.LENGTH_LONG).show();
+            }
+            setResult(Activity.RESULT_OK);
+            finish();
         }
-        setResult(Activity.RESULT_OK);
-        finish();
+
     }
 
     public void dailyBackAction(View view) {

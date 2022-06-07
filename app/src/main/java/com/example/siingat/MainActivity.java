@@ -38,13 +38,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
-<<<<<<< HEAD
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-=======
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
@@ -52,7 +50,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
->>>>>>> b73cb7e716d26a90daed5109a7f0e923438fc6ef
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

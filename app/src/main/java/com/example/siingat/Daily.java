@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Daily {
     public static ArrayList<Daily> dailiesList = new ArrayList<>();
@@ -20,6 +22,14 @@ public class Daily {
             if(daily.getDay().equals(today))
                 dailies.add(daily);
         }
+
+        Collections.sort(dailies, new Comparator<Daily>() {
+
+            @Override
+            public int compare(Daily d1, Daily d2) {
+                return d1.getTime().compareTo(d2.getTime());
+            }
+        });
 
         return dailies;
     }

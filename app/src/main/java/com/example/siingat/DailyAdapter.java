@@ -27,10 +27,14 @@ public class DailyAdapter extends ArrayAdapter<Daily> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.daily_cell, parent, false);
         }
 
-        TextView dailyCellTV = convertView.findViewById(R.id.dailyCellTV);
+        TextView dailyCellName = convertView.findViewById(R.id.dailyCellName);
+        TextView dailyCellTime = convertView.findViewById(R.id.dailyCellTime);
 
-        String dailyTitle = daily.getName() + " " + CalendarUtils.formattedTime(daily.getTime());
-        dailyCellTV.setText(dailyTitle);
+        String dailyName = daily.getName();
+        String dailyTime = CalendarUtils.formattedTime(daily.getTime());
+
+        dailyCellName.setText(dailyName);
+        dailyCellTime.setText(dailyTime);
 
         return convertView;
     }

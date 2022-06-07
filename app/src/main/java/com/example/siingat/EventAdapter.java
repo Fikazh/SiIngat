@@ -28,10 +28,14 @@ public class EventAdapter extends ArrayAdapter<Event>
         if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_cell, parent, false);
 
-        TextView eventCellTV = convertView.findViewById(R.id.eventCellTV);
+        TextView eventCellName = convertView.findViewById(R.id.eventCellName);
+        TextView eventCellTime = convertView.findViewById(R.id.eventCellTime);
 
-        String eventTitle = event.getName() + " "+ CalendarUtils.formattedTime(event.getTime());
-        eventCellTV.setText(eventTitle);
+        String name = event.getName();
+        String time = CalendarUtils.formattedTime(event.getTime());
+        eventCellName.setText(name);
+        eventCellTime.setText(time);
+
         return convertView;
     }
 }

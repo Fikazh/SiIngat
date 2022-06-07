@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Show Arrylist
-        if (Daily.dailiesList.isEmpty() == true){
+        if (Daily.dailiesList.isEmpty() == true) {
             showDailiesMain();
         }
     }
@@ -177,14 +177,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void importCloudtoSQLite(){
+    public void importCloudtoSQLite() {
         //if SQLite with UID not null run this
         SQLiteDatabase db = database.getReadableDatabase();
         cloudDailies(db);
         cloudEvents(db);
     }
 
-    public void cloudDailies(SQLiteDatabase db){
+    public void cloudDailies(SQLiteDatabase db) {
         //Backup Cloud to SQLite
         Cursor cc = db.rawQuery("SELECT * FROM Dailies WHERE TRIM(UID) = '" + currentUser.getUid().trim() + "'", null);
         cc.moveToNext();
@@ -192,41 +192,48 @@ public class MainActivity extends AppCompatActivity {
             try {
                 dbFire = FirebaseFirestore.getInstance();
                 CollectionReference docRef = dbFire.collection("users").document(currentUser.getUid()).collection("Dailies");
-                docRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            List<DocumentSnapshot> document = task.getResult().getDocuments();
-                            for (int i = 0; i < document.size(); i++) {
+                docRef.get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    List<DocumentSnapshot> document = task.getResult().getDocuments();
+                                    if (!document.isEmpty()) {
+                                        Log.d("CLOUD DALIES", String.valueOf(document));
+                                        for (int i = 0; i < document.size(); i++) {
 
-                                //default, ISO_LOCAL_DATE
-                                LocalTime localtime = LocalTime.parse(document.get(i).getData().get("Time").toString());
+                                            //default, ISO_LOCAL_DATE
+                                            LocalTime localtime = LocalTime.parse(document.get(i).getData().get("Time").toString());
 
-                                //Boolean Convert
-                                String strPriority = document.get(i).getData().get("Priority").toString();
-                                boolean blPriority = booleanConverter(strPriority);
+                                            //Boolean Convert
+                                            String strPriority = document.get(i).getData().get("Priority").toString();
+                                            boolean blPriority = booleanConverter(strPriority);
 
-                                Daily newDaily = new Daily(document.get(i).getData().get("Description").toString(),
-                                        document.get(i).getData().get("Day").toString(),
-                                        localtime,
-                                        blPriority);
+                                            Daily newDaily = new Daily(document.get(i).getData().get("Description").toString(),
+                                                    document.get(i).getData().get("Day").toString(),
+                                                    localtime,
+                                                    blPriority);
 
-                                SQLiteDatabase db = database.getWritableDatabase();
-                                db.execSQL("insert into Dailies(ID_DAILY, UID, Day, Time, Description, Priority) values ('" +
-                                        document.get(i).getId() + "','" +
-                                        currentUser.getUid() + "','" +
-                                        newDaily.getDay() + "','" +
-                                        newDaily.getTime().toString() + "','" +
-                                        newDaily.getName() + "','" +
-                                        newDaily.isPriority() + "')");
+                                            SQLiteDatabase db = database.getWritableDatabase();
+                                            db.execSQL("insert into Dailies(ID_DAILY, UID, Day, Time, Description, Priority) values ('" +
+                                                    document.get(i).getId() + "','" +
+                                                    currentUser.getUid() + "','" +
+                                                    newDaily.getDay() + "','" +
+                                                    newDaily.getTime().toString() + "','" +
+                                                    newDaily.getName() + "','" +
+                                                    newDaily.isPriority() + "')");
+                                        }
+                                        Log.d("Sqlite", "Stored Data Dailies Success");
+                                        overridePendingTransition(0, 0);
+                                        startActivity(getIntent());
+                                        overridePendingTransition(0, 0);
+                                        finish();
+                                    } else {
+                                        Log.d("Sqlite Dailies", "No such document");
+                                    }
+                                }
                             }
-                            overridePendingTransition(0, 0);
-                            startActivity(getIntent());
-                            overridePendingTransition(0, 0);
-                        }
-                    }
-                });
-                Log.d("Sqlite", "Stored Data Dailies Success");
+                        });
             } catch (Exception ex) {
                 Log.d("Sqlite", "Stored Data Dailies Failed");
             }
@@ -235,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void cloudEvents(SQLiteDatabase db){
+    public void cloudEvents(SQLiteDatabase db) {
         //Backup Cloud to SQLite
         Cursor cc = db.rawQuery("SELECT * FROM Events WHERE TRIM(UID) = '" + currentUser.getUid().trim() + "'", null);
         cc.moveToNext();
@@ -248,37 +255,42 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             List<DocumentSnapshot> document = task.getResult().getDocuments();
-                            for (int i = 0; i < document.size(); i++) {
+                            if (!document.isEmpty()) {
+                                for (int i = 0; i < document.size(); i++) {
 
-                                //default, ISO_LOCAL_DATE
-                                LocalDate localDate = LocalDate.parse(document.get(i).getData().get("Date").toString());
-                                LocalTime localtime = LocalTime.parse(document.get(i).getData().get("Time").toString());
+                                    //default, ISO_LOCAL_DATE
+                                    LocalDate localDate = LocalDate.parse(document.get(i).getData().get("Date").toString());
+                                    LocalTime localtime = LocalTime.parse(document.get(i).getData().get("Time").toString());
 
-                                //Boolean Convert
-                                String strPriority = document.get(i).getData().get("Priority").toString();
-                                boolean blPriority = booleanConverter(strPriority);
+                                    //Boolean Convert
+                                    String strPriority = document.get(i).getData().get("Priority").toString();
+                                    boolean blPriority = booleanConverter(strPriority);
 
-                                Event newEvent = new Event(document.get(i).getData().get("Description").toString(),
-                                        localDate,
-                                        localtime,
-                                        blPriority);
+                                    Event newEvent = new Event(document.get(i).getData().get("Description").toString(),
+                                            localDate,
+                                            localtime,
+                                            blPriority);
 
-                                SQLiteDatabase db = database.getWritableDatabase();
-                                db.execSQL("insert into Events(ID_EVENT, UID, Date, Time, Description, Priority) values ('" +
-                                        document.get(i).getId() + "','" +
-                                        currentUser.getUid() + "','" +
-                                        newEvent.getDate() + "','" +
-                                        newEvent.getTime().toString() + "','" +
-                                        newEvent.getName() + "','" +
-                                        newEvent.isPriority() + "')");
+                                    SQLiteDatabase db = database.getWritableDatabase();
+                                    db.execSQL("insert into Events(ID_EVENT, UID, Date, Time, Description, Priority) values ('" +
+                                            document.get(i).getId() + "','" +
+                                            currentUser.getUid() + "','" +
+                                            newEvent.getDate() + "','" +
+                                            newEvent.getTime().toString() + "','" +
+                                            newEvent.getName() + "','" +
+                                            newEvent.isPriority() + "')");
+                                }
+                                Log.d("Sqlite", "Stored Data Events Success");
+                                overridePendingTransition(0, 0);
+                                startActivity(getIntent());
+                                overridePendingTransition(0, 0);
+                                finish();
+                            } else {
+                                Log.d("Sqlite Events", "No such document");
                             }
-                            overridePendingTransition(0, 0);
-                            startActivity(getIntent());
-                            overridePendingTransition(0, 0);
                         }
                     }
                 });
-                Log.d("Sqlite", "Stored Data Events Success");
             } catch (Exception ex) {
                 Log.d("Sqlite", "Stored Data Events Failed");
             }
@@ -307,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
             //make object
             Daily newDailies = new Daily(c.getString(4), c.getString(2), localtime, blPriority);
 
-            if (newDailies.getTime().isAfter(LocalTime.now())){
+            if (newDailies.getTime().isAfter(LocalTime.now())) {
                 Daily.dailiesList.add(newDailies);
             }
 

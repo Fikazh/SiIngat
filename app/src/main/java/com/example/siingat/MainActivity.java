@@ -30,6 +30,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,9 +38,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -115,27 +120,60 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        dbFire = FirebaseFirestore.getInstance();
-        DocumentReference docRef = dbFire.collection("Dailies").document("uK9kFfbfR3tdcJmsDBwI");
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    Log.d("TAMPIL DAILIES", String.valueOf(document.getData()));
-//                }
-//            }
-//        });
-        dbFire.collectionGroup("Dailies").whereEqualTo("Priority",1)
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                List<DocumentSnapshot> queryDocumentSnapshots = task.getResult().getDocuments();
-                Log.d("Tampil Dailies", String.valueOf(queryDocumentSnapshots.get(0).getData()));
-                Log.d("Tampil Dailies", String.valueOf(queryDocumentSnapshots.get(1).getData()));
-                Log.d("Tampil Dailies", String.valueOf(queryDocumentSnapshots.get(1).getId()));
+        //if SQLite with UID not null run this
+        SQLiteDatabase dbread = database.getReadableDatabase();
+
+        //Backup Cloud to SQLite
+        Cursor cc = db.rawQuery("SELECT * FROM Dailies WHERE TRIM(UID) = '" + currentUser.getUid().trim() + "'", null);
+        cc.moveToNext();
+        if(cc.getCount() == 0){
+            try {
+                dbFire = FirebaseFirestore.getInstance();
+                CollectionReference docRef = dbFire.collection("users").document(currentUser.getUid()).collection("Dailies");
+                docRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<DocumentSnapshot> document = task.getResult().getDocuments();
+                            for (int i = 0; i < document.size(); i++) {
+                                //default, ISO_LOCAL_DATE
+                                LocalTime localtime = LocalTime.parse(document.get(i).getData().get("Time").toString());
+                                String strPriority = document.get(i).getData().get("Priority").toString();
+
+                                //Boolean converter
+                                Boolean blPriority = false;
+                                if (strPriority.equals("1")) {
+                                    blPriority = true;
+                                } else if (strPriority.equals("0")) {
+                                    blPriority = false;
+                                } else {
+                                    Log.d("Boolean Convert", "failed");
+                                }
+
+                                Event newDaily = new Event(document.get(i).getData().get("Day").toString(),
+                                        document.get(i).getData().get("Description").toString(),
+                                        localtime,
+                                        blPriority);
+
+                                SQLiteDatabase db = database.getWritableDatabase();
+                                db.execSQL("insert into Dailies(ID_DAILY, UID, Day, Time, Description, Priority) values ('" +
+                                        document.get(i).getId() + "','" +
+                                        currentUser.getUid() + "','" +
+                                        newDaily.getDay() + "','" +
+                                        newDaily.getTime().toString() + "','" +
+                                        newDaily.getName() + "','" +
+                                        newDaily.isPriority() + "')");
+                            }
+                        }
+                    }
+                });
+                Log.d("Sqlite", "Stored Data Dailies Success");
+            }catch (Exception ex){
+                Log.d("Sqlite", "Stored Data Dailies Failed");
             }
-        });
+        }else{
+            Log.d("Sqlite", "Data Dailies has Stored");
+        }
     }
 
     private void showDialog() {

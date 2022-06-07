@@ -29,7 +29,7 @@ public class Daily {
     private boolean priority;
 
     //Daily constructor
-    public Daily(String day, String name, LocalTime time, boolean priority)
+    public Daily(String name, String day,LocalTime time, boolean priority)
     {
         this.day = day;
         this.name = name;

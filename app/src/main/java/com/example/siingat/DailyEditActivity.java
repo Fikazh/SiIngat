@@ -127,7 +127,10 @@ public class DailyEditActivity extends AppCompatActivity {
         LocalTime dailyTime = LocalTime.parse(time);
 
         Daily newDaily = new Daily(selectedDay, dailyName, dailyTime, isPriority);
-        Daily.dailiesList.add(newDaily);
+
+        if (newDaily.getTime().isAfter(LocalTime.now())){
+            Daily.dailiesList.add(newDaily);
+        }
 
         //SQLite
         try {

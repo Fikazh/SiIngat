@@ -52,7 +52,7 @@ public class DailyEditActivity extends AppCompatActivity {
 
     int hour, minute;
 
-    String time, date;
+    String time;
 
     private NumberPicker numberPicker;
     private String selectedDay;

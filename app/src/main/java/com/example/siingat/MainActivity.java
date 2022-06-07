@@ -180,7 +180,11 @@ public class MainActivity extends AppCompatActivity {
     public void importCloudtoSQLite(){
         //if SQLite with UID not null run this
         SQLiteDatabase db = database.getReadableDatabase();
+        cloudDailies(db);
+        cloudEvents(db);
+    }
 
+    public void cloudDailies(SQLiteDatabase db){
         //Backup Cloud to SQLite
         Cursor cc = db.rawQuery("SELECT * FROM Dailies WHERE TRIM(UID) = '" + currentUser.getUid().trim() + "'", null);
         cc.moveToNext();
@@ -202,8 +206,8 @@ public class MainActivity extends AppCompatActivity {
                                 String strPriority = document.get(i).getData().get("Priority").toString();
                                 boolean blPriority = booleanConverter(strPriority);
 
-                                Daily newDaily = new Daily(document.get(i).getData().get("Day").toString(),
-                                        document.get(i).getData().get("Description").toString(),
+                                Daily newDaily = new Daily(document.get(i).getData().get("Description").toString(),
+                                        document.get(i).getData().get("Day").toString(),
                                         localtime,
                                         blPriority);
 
@@ -231,6 +235,58 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void cloudEvents(SQLiteDatabase db){
+        //Backup Cloud to SQLite
+        Cursor cc = db.rawQuery("SELECT * FROM Events WHERE TRIM(UID) = '" + currentUser.getUid().trim() + "'", null);
+        cc.moveToNext();
+        if (cc.getCount() == 0) {
+            try {
+                dbFire = FirebaseFirestore.getInstance();
+                CollectionReference docRef = dbFire.collection("users").document(currentUser.getUid()).collection("Events");
+                docRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<DocumentSnapshot> document = task.getResult().getDocuments();
+                            for (int i = 0; i < document.size(); i++) {
+
+                                //default, ISO_LOCAL_DATE
+                                LocalDate localDate = LocalDate.parse(document.get(i).getData().get("Date").toString());
+                                LocalTime localtime = LocalTime.parse(document.get(i).getData().get("Time").toString());
+
+                                //Boolean Convert
+                                String strPriority = document.get(i).getData().get("Priority").toString();
+                                boolean blPriority = booleanConverter(strPriority);
+
+                                Event newEvent = new Event(document.get(i).getData().get("Description").toString(),
+                                        localDate,
+                                        localtime,
+                                        blPriority);
+
+                                SQLiteDatabase db = database.getWritableDatabase();
+                                db.execSQL("insert into Events(ID_EVENT, UID, Date, Time, Description, Priority) values ('" +
+                                        document.get(i).getId() + "','" +
+                                        currentUser.getUid() + "','" +
+                                        newEvent.getDate() + "','" +
+                                        newEvent.getTime().toString() + "','" +
+                                        newEvent.getName() + "','" +
+                                        newEvent.isPriority() + "')");
+                            }
+                            overridePendingTransition(0, 0);
+                            startActivity(getIntent());
+                            overridePendingTransition(0, 0);
+                        }
+                    }
+                });
+                Log.d("Sqlite", "Stored Data Events Success");
+            } catch (Exception ex) {
+                Log.d("Sqlite", "Stored Data Events Failed");
+            }
+        } else {
+            Log.d("Sqlite", "Data Events has Stored");
+        }
+    }
+
     public void showDailiesMain() {
         //if SQLite with UID not null run this
         SQLiteDatabase db = database.getReadableDatabase();
@@ -249,8 +305,7 @@ public class MainActivity extends AppCompatActivity {
             boolean blPriority = booleanConverter(c.getString(5));
 
             //make object
-            Daily newDailies = new Daily(c.getString(2), c.getString(4)
-                    , localtime, blPriority);
+            Daily newDailies = new Daily(c.getString(4), c.getString(2), localtime, blPriority);
 
             if (newDailies.getTime().isAfter(LocalTime.now())){
                 Daily.dailiesList.add(newDailies);

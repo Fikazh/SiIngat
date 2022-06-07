@@ -2,6 +2,7 @@ package com.example.siingat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Event
@@ -21,11 +22,13 @@ public class Event
         return events;
     }
 
-
-    private String name;
+    private String name, day;
     private LocalDate date;
     private LocalTime time;
+    private boolean priority;
 
+
+    //Event constructor
     public Event(String name, LocalDate date, LocalTime time)
     {
         this.name = name;
@@ -33,33 +36,35 @@ public class Event
         this.time = time;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public LocalDate getDate()
-    {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date)
-    {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public LocalTime getTime()
-    {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time)
-    {
+    public void setTime(LocalTime time) {
         this.time = time;
+    }
+
+    public int isPriority() {
+        return Boolean.compare(priority, false);
+    }
+
+    public void setPriority(boolean priority) {
+        this.priority = priority;
     }
 }

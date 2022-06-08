@@ -11,6 +11,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 import java.util.Map;
 
@@ -65,13 +67,27 @@ public class DailyExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
         String dayName = getGroup(i).toString();
+
         if(view == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.daily_group_item, null);
         }
+        ImageView indicator = view.findViewById(R.id.group_indicator);
+        indicator.setImageResource(b?R.drawable.ic_eva_arrow_up_outline:R.drawable.ic_eva_arrow_up_fill);
+
+        int count = getChildrenCount(i);
+
         TextView item = view.findViewById(R.id.dayTitle);
+        TextView itemCount = view.findViewById(R.id.activitiesCount);
+
         item.setTypeface(null, Typeface.BOLD);
         item.setText(dayName);
+        if(count > 0) {
+            itemCount.setTypeface(null, Typeface.BOLD);
+            itemCount.setText(count + " Activities");
+        }
+        else itemCount.setText(null);
+
         return view;
     }
 
@@ -83,32 +99,11 @@ public class DailyExpandableListAdapter extends BaseExpandableListAdapter {
             view = inflater.inflate(R.layout.daily_child_item, null);
         }
         TextView item = view.findViewById(R.id.childDaily);
-        ImageView delete = view.findViewById(R.id.delete);
-        item.setText(daily.getName() + " " + CalendarUtils.formattedTime(daily.getTime()));
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Do you want to remove?");
-                builder.setCancelable(true);
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int id) {
-                        List<Daily> child = dailyCollection.get(daysList.get(i));
-                        child.remove(i1);
-                        notifyDataSetChanged();
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
-        });
+        TextView itemTime = view.findViewById(R.id.childDailyTime);
+
+        item.setText("> " + daily.getName());
+        itemTime.setText(CalendarUtils.formattedTime(daily.getTime()));
+
         return view;
     }
 

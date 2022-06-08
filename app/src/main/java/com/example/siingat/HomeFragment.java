@@ -1,7 +1,5 @@
 package com.example.siingat;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,7 +77,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        dailyListView = view.findViewById(R.id.dailyListView);
+        dailyListView = view.findViewById(R.id.todayListView);
         setTodayAdapter();
 
         expandableListView = view.findViewById(R.id.homeDailies);

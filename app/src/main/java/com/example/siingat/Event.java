@@ -29,6 +29,33 @@ public class Event {
         return events;
     }
 
+    public static ArrayList<Event> eventsForLater(){
+        ArrayList<Event> events = new ArrayList<>();
+        LocalDate localDate = LocalDate.now();
+
+        for (Event event : eventsList) {
+            if(event.getDate().isAfter(localDate))
+                events.add(event);
+        }
+
+        Collections.sort(events, new Comparator<Event>() {
+            @Override
+            public int compare(Event ev1, Event ev2) {
+                return ev1.getTime().compareTo(ev2.getTime());
+            }
+        });
+
+        Collections.sort(events, new Comparator<Event>() {
+
+            @Override
+            public int compare(Event e1, Event e2) {
+                return e1.getDate().compareTo(e2.getDate());
+            }
+        });
+
+        return events;
+    }
+
     private String name;
     private LocalDate date;
     private LocalTime time;

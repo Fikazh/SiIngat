@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="wrap_content"
+    android:paddingVertical="10dp">
 
     <TextView
         android:id="@+id/futureEventCellName"
@@ -17,14 +18,28 @@
         android:text="Name"/>
 
     <TextView
-        android:id="@+id/eventCellTime"
+        android:id="@+id/futureEventCellTime"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/futureEventCellName"
         android:gravity="center"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
         android:textSize="18dp"
         android:textColor="@color/gray_64"
         android:text="Time"/>
+
+    <TextView
+        android:id="@+id/futureEventCellDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20dp"
+        android:textSize="18dp"
+        android:textColor="@color/gray_64"
+        android:text="Date"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

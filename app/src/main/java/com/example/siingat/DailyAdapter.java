@@ -34,9 +34,6 @@ public class DailyAdapter extends ArrayAdapter<Daily> {
         String dailyName = daily.getName();
         String dailyTime = CalendarUtils.formattedTime(daily.getTime());
 
-        dailyCellName.setTextSize(18);
-        dailyCellTime.setTextSize(18);
-
         dailyCellName.setText(dailyName);
         dailyCellTime.setText(dailyTime);
 

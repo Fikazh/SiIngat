@@ -28,7 +28,7 @@ public class EventAdapter extends ArrayAdapter<Event>
         if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_cell, parent, false);
 
-        TextView eventCellName = convertView.findViewById(R.id.eventCellName);
+        TextView eventCellName = convertView.findViewById(R.id.futureEventCellName);
         TextView eventCellTime = convertView.findViewById(R.id.eventCellTime);
 
         String name = event.getName();

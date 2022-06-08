@@ -34,6 +34,8 @@ public class Daily {
         return dailies;
     }
 
+
+
     private String name, day;
     private LocalTime time;
     private boolean priority;

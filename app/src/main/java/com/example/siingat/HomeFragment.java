@@ -13,6 +13,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -150,6 +152,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void loadChild(ArrayList<Daily> dailies, String day) {
         childList = new ArrayList<>();
+
+        Collections.sort(dailies, new Comparator<Daily>() {
+            @Override
+            public int compare(Daily d1, Daily d2) {
+                return d1.getTime().compareTo(d2.getTime());
+            }
+        });
 
         for(Daily daily : dailies) {
             if(daily.getDay().equals(day))

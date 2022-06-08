@@ -36,10 +36,20 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/futureEventDelete"
         android:layout_marginEnd="20dp"
         android:textSize="18dp"
         android:textColor="@color/gray_64"
         android:text="Date"/>
+
+    <ImageView
+        android:id="@+id/futureEventDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/delete"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

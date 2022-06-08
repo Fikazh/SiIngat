@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Daily {
     public static ArrayList<Daily> dailiesList = new ArrayList<>();
-
     private String name, day;
     private LocalTime time;
     private boolean priority;

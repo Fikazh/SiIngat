@@ -1,5 +1,6 @@
 package com.example.siingat;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -194,6 +195,7 @@ public class EventEditActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "Data Error", Toast.LENGTH_LONG).show();
             }
+            setResult(Activity.RESULT_OK);
             finish();
         }
     }

@@ -1,42 +1,114 @@
 package com.example.siingat;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import org.w3c.dom.Text;
 
 import java.util.List;
+import java.util.Map;
 
-public class DailyAdapter extends ArrayAdapter<Daily> {
-    public DailyAdapter (Context context, List<Daily> dailies)
-    {
-        super (context, 0, dailies);
+public class DailyAdapter extends BaseExpandableListAdapter {
+
+    private Context context;
+    private Map<String, List<Daily>> dailyCollection;
+    private List<String> daysList;
+
+    public DailyAdapter(Context context, List<String> daysList,
+                        Map<String, List<Daily>> dailyCollection){
+        this.context = context;
+        this.dailyCollection = dailyCollection;
+        this.daysList = daysList;
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Daily daily = getItem(position);
+    public int getGroupCount() {
+        return dailyCollection.size();
+    }
 
-        if (convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.daily_cell, parent, false);
+    @Override
+    public int getChildrenCount(int i) {
+        return dailyCollection.get(daysList.get(i)).size();
+    }
+
+    @Override
+    public Object getGroup(int i) {
+        return daysList.get(i);
+    }
+
+    @Override
+    public Daily getChild(int i, int i1) {
+        return dailyCollection.get(daysList.get(i)).get(i1);
+    }
+
+    @Override
+    public long getGroupId(int i) {
+        return i;
+    }
+
+    @Override
+    public long getChildId(int i, int i1) {
+        return i1;
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return true;
+    }
+
+    @Override
+    public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
+        String dayName = getGroup(i).toString();
+
+        if(view == null){
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.daily_group_item, null);
         }
+        ImageView indicator = view.findViewById(R.id.group_indicator);
+        indicator.setImageResource(b?R.drawable.ic_eva_arrow_up_outline:R.drawable.ic_eva_arrow_up_fill);
 
-        TextView dailyCellName = convertView.findViewById(R.id.dailyCellName);
-        TextView dailyCellTime = convertView.findViewById(R.id.dailyCellTime);
+        int count = getChildrenCount(i);
 
-        String dailyName = daily.getName();
-        String dailyTime = CalendarUtils.formattedTime(daily.getTime());
+        TextView item = view.findViewById(R.id.dayTitle);
+        TextView itemCount = view.findViewById(R.id.activitiesCount);
 
-        dailyCellName.setText(dailyName);
-        dailyCellTime.setText(dailyTime);
+        item.setTypeface(null, Typeface.BOLD);
+        item.setText(dayName);
+        if(count > 0) {
+            itemCount.setTypeface(null, Typeface.BOLD);
+            itemCount.setText(count + " Activities");
+        }
+        else itemCount.setText(null);
 
-        return convertView;
+        return view;
+    }
+
+    @Override
+    public View getChildView(final int i, final int i1, boolean b, View view, ViewGroup viewGroup) {
+        Daily daily = getChild(i, i1);
+        if (view == null){
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.daily_child_item, null);
+        }
+        TextView item = view.findViewById(R.id.childDaily);
+        TextView itemTime = view.findViewById(R.id.childDailyTime);
+
+        item.setText("> " + daily.getName());
+        itemTime.setText(CalendarUtils.formattedTime(daily.getTime()));
+
+        return view;
+    }
+
+    @Override
+    public boolean isChildSelectable(int i, int i1) {
+        return true;
     }
 }

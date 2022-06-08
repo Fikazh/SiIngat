@@ -3,7 +3,6 @@ package com.example.siingat;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
@@ -17,10 +16,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +28,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -43,13 +38,8 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -130,12 +120,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Show Daily Arraylist
         if (Daily.dailiesList.isEmpty() == true) {
-            showDailiesMain();
+            sqlToArryDailies();
         }
 
         //Show Event Arraylist
         if (Event.eventsList.isEmpty() == true) {
-            showEventsMain();
+            sqlToArryEvents();
         }
     }
 
@@ -165,7 +155,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                startActivity(new Intent(MainActivity.this, EventEditActivity.class));
+                Intent intent = new Intent(MainActivity.this, EventEditActivity.class);
+                startActivityForResult(intent, 10001);
             }
         });
 
@@ -177,13 +168,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 10001);
             }
         });
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if ((requestCode == 10001) && (resultCode == Activity.RESULT_OK)) {
-            Toast.makeText(getApplicationContext(), "Activity Finished", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Save Success", Toast.LENGTH_SHORT).show();
             overridePendingTransition(0, 0);
             startActivity(getIntent());
             overridePendingTransition(0, 0);
@@ -313,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void showDailiesMain() {
+    public void sqlToArryDailies() {
         //if SQLite with UID not null run this
         SQLiteDatabase db = database.getReadableDatabase();
 
@@ -333,15 +325,13 @@ public class MainActivity extends AppCompatActivity {
             //make object
             Daily newDailies = new Daily(c.getString(4), c.getString(2), localtime, blPriority);
 
-            if (newDailies.getTime().isAfter(LocalTime.now())) {
-                Daily.dailiesList.add(newDailies);
-            }
+            Daily.dailiesList.add(newDailies);
 
             c.moveToNext();
         }
     }
 
-    public void showEventsMain() {
+    public void sqlToArryEvents() {
         //if SQLite with UID not null run this
         SQLiteDatabase db = database.getReadableDatabase();
 
@@ -362,9 +352,7 @@ public class MainActivity extends AppCompatActivity {
             //make object
             Event newEvents = new Event(c.getString(4), localDate, localtime, blPriority);
 
-            if (newEvents.getDate().isAfter(LocalDate.now())) {
-                Event.eventsList.add(newEvents);
-            }
+            Event.eventsList.add(newEvents);
 
             c.moveToNext();
         }

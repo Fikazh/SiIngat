@@ -1,28 +1,23 @@
 package com.example.siingat;
 
-import android.animation.LayoutTransition;
-import android.app.Activity;
-import android.content.Intent;
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.transition.AutoTransition;
-import androidx.transition.TransitionManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +27,12 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private ListView dailyListView;
+
+    List<String> daysList;
+    List<Daily> childList;
+    Map<String, List<Daily>> dailyCollection;
+    ExpandableListView expandableListView;
+    ExpandableListAdapter dailyExpandableListAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,15 +81,72 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         dailyListView = view.findViewById(R.id.dailyListView);
-        setDailyAdapter();
+        setTodayAdapter();
+
+        expandableListView = view.findViewById(R.id.homeDailies);
+        setExpandableDailyAdapter();
+
+        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            int lastExpandedPosition = -1;
+            @Override
+            public void onGroupExpand(int i) {
+                if(lastExpandedPosition != -1 && i != lastExpandedPosition){
+                    expandableListView.collapseGroup(lastExpandedPosition);
+                }
+                lastExpandedPosition = i;
+            }
+        });
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                Object selected = dailyExpandableListAdapter.getChild(i,i1);
+                return true;
+            }
+        });
 
         return view;
     }
 
-    private void setDailyAdapter() {
-        ArrayList<Daily> dailyEvents = Daily.dailyForDay();
+    private void setTodayAdapter() {
+        ArrayList<Daily> dailyEvents = Daily.dailyForToday();
         DailyAdapter dailyAdapter = new DailyAdapter(getActivity().getApplicationContext(), dailyEvents);
         dailyListView.setAdapter(dailyAdapter);
+    }
+
+    private void setExpandableDailyAdapter() {
+        createGroupList();
+        createCollection();
+        dailyExpandableListAdapter = new DailyExpandableListAdapter(getActivity().getApplicationContext(), daysList, dailyCollection);
+        expandableListView.setAdapter(dailyExpandableListAdapter);
+    }
+
+    private void createGroupList() {
+        daysList = new ArrayList<>();
+        daysList.add("Monday");
+        daysList.add("Tuesday");
+        daysList.add("Wednesday");
+        daysList.add("Thursday");
+        daysList.add("Friday");
+        daysList.add("Saturday");
+        daysList.add("Sunday");
+    }
+
+    private void createCollection() {
+        dailyCollection = new HashMap<String, List<Daily>>();
+
+        for(String day : daysList){
+            loadChild(Daily.dailiesList, day);
+            dailyCollection.put(day, childList);
+        }
+    }
+
+    private void loadChild(ArrayList<Daily> dailies, String day) {
+        childList = new ArrayList<>();
+
+        for(Daily daily : dailies) {
+            if(daily.getDay().equals(day))
+                childList.add(daily);
+        }
     }
 
     @Override

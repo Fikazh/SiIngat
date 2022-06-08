@@ -10,7 +10,7 @@ import java.util.Comparator;
 public class Daily {
     public static ArrayList<Daily> dailiesList = new ArrayList<>();
 
-    public static ArrayList<Daily> dailyForDay()
+    public static ArrayList<Daily> dailyForToday()
     {
         LocalDate date = LocalDate.now();
         String today = date.format(DateTimeFormatter.ofPattern("EEEE"));

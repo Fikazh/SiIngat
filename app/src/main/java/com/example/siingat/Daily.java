@@ -1,41 +1,9 @@
 package com.example.siingat;
-
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class Daily {
     public static ArrayList<Daily> dailiesList = new ArrayList<>();
-
-    public static ArrayList<Daily> dailyForToday()
-    {
-        LocalDate date = LocalDate.now();
-        String today = date.format(DateTimeFormatter.ofPattern("EEEE"));
-
-        ArrayList<Daily> dailies = new ArrayList<>();
-
-        for(Daily daily : dailiesList)
-        {
-            if(daily.getDay().equals(today))
-                dailies.add(daily);
-        }
-
-        Collections.sort(dailies, new Comparator<Daily>() {
-
-            @Override
-            public int compare(Daily d1, Daily d2) {
-                return d1.getTime().compareTo(d2.getTime());
-            }
-        });
-
-        return dailies;
-    }
-
-
-
     private String name, day;
     private LocalTime time;
     private boolean priority;
@@ -80,4 +48,5 @@ public class Daily {
     public void setPriority(boolean priority) {
         this.priority = priority;
     }
+
 }

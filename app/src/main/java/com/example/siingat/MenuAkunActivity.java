@@ -25,8 +25,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class MenuAkunActivity extends AppCompatActivity implements View.OnClickListener {
@@ -43,7 +45,7 @@ public class MenuAkunActivity extends AppCompatActivity implements View.OnClickL
     private User usr;
 
     //Komponen
-    private TextView tvName, Theme;
+    private TextView tvName, Theme, tvDay, tvDate;
     private Button btnUpdate, btnLogout;
     private EditText etName, etBirth;
     private TextView tvGender, tvEmail;
@@ -79,6 +81,16 @@ public class MenuAkunActivity extends AppCompatActivity implements View.OnClickL
         etBirth = (EditText) findViewById(R.id.et_birth);
         etName = (EditText) findViewById(R.id.name_field);
         tvName = findViewById(R.id.nameAkun);
+
+        tvDay = findViewById(R.id.dayAkun);
+        tvDate = findViewById(R.id.dateAkun);
+
+        Date currentTime = Calendar.getInstance().getTime();
+        String Day = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(currentTime.getTime());
+        String formattedDate = DateFormat.getDateInstance(DateFormat.LONG).format(currentTime);
+        tvDay.setText(Day);
+        tvDate.setText(formattedDate);
+
         tvGender = findViewById(R.id.gender_field);
         tvEmail = findViewById(R.id.email_field);
 
@@ -92,7 +104,6 @@ public class MenuAkunActivity extends AppCompatActivity implements View.OnClickL
         etBirth.setText(usr.getBirth());
         tvGender.setText(usr.getGender());
         tvEmail.setText(currentUser.getEmail());
-
 
         //Untuk Tanggal
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {

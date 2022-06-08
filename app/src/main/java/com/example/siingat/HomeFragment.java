@@ -24,7 +24,7 @@ import java.util.Map;
  */
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
-    private ListView dailyListView;
+    private ListView dailyListView, eventListView;
 
     List<String> daysList;
     List<Daily> childList;
@@ -81,6 +81,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         dailyListView = view.findViewById(R.id.todayListView);
         setTodayAdapter();
 
+        eventListView = view.findViewById(R.id.eventListView);
+        setEventAdapter();
+
         expandableListView = view.findViewById(R.id.homeDailies);
         setExpandableDailyAdapter();
 
@@ -109,6 +112,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ArrayList<Daily> dailyEvents = Daily.dailyForToday();
         DailyAdapter dailyAdapter = new DailyAdapter(getActivity().getApplicationContext(), dailyEvents);
         dailyListView.setAdapter(dailyAdapter);
+    }
+
+    private void setEventAdapter()
+    {
+        ArrayList<Event> dailyEvents = Event.eventsForLater();
+        EventAdapter eventAdapter = new EventAdapter(getActivity().getApplicationContext(), dailyEvents);
+        eventListView.setAdapter(eventAdapter);
     }
 
     private void setExpandableDailyAdapter() {

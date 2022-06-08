@@ -29,6 +29,18 @@ public class Event {
         return events;
     }
 
+    public static ArrayList<Event> eventsForLater(){
+        ArrayList<Event> events = new ArrayList<>();
+        LocalDate localDate = LocalDate.now();
+
+        for (Event event : eventsList) {
+            if(event.getDate().isAfter(localDate))
+                events.add(event);
+        }
+
+        return events;
+    }
+
     private String name;
     private LocalDate date;
     private LocalTime time;

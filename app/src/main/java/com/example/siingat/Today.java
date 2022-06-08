@@ -16,6 +16,7 @@ public class Today {
     public static ArrayList<Today> dailyEventToday(ArrayList<Daily> dailiesList, ArrayList<Event> eventsList) {
         ArrayList<Today> dailyEvents = new ArrayList<>();
         LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
 
 
         //add to dailyEvents form dailiesList and eventsList
@@ -25,7 +26,9 @@ public class Today {
             String today = date.format(DateTimeFormatter.ofPattern("EEEE"));
 
             if (daily.getDay().equals(today)){
-                dailyEvents.add(dailyToday);
+                if (daily.getTime().isAfter(time)) {
+                    dailyEvents.add(dailyToday);
+                }
             }
         }
 
@@ -40,20 +43,6 @@ public class Today {
             @Override
             public int compare(Today td1, Today td2) {
                 return td1.getTime().compareTo(td2.getTime());
-            }
-        });
-
-        Collections.sort(dailyEvents, new Comparator<Today>() {
-            int comp;
-
-            @Override
-            public int compare(Today td1, Today td2) {
-                try {
-                    comp = td1.getDate().compareTo(td2.getDate());
-                } catch (Exception e) {
-                    Log.d("COMPARE", "LOSSS");
-                }
-                return comp;
             }
         });
 

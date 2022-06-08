@@ -15,10 +15,10 @@
         android:padding="91dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/today" />
+        app:layout_constraintTop_toTopOf="@+id/todayTitle" />
 
     <TextView
-        android:id="@+id/today"
+        android:id="@+id/todayTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Today"

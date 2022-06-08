@@ -1,6 +1,7 @@
 package com.example.siingat;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,9 @@ public class DailyAdapter extends ArrayAdapter<Daily> {
 
         String dailyName = daily.getName();
         String dailyTime = CalendarUtils.formattedTime(daily.getTime());
+
+        dailyCellName.setTextSize(18);
+        dailyCellTime.setTextSize(18);
 
         dailyCellName.setText(dailyName);
         dailyCellTime.setText(dailyTime);

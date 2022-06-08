@@ -11,8 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        //Separator//
         <TextView
-            android:id="@+id/today"
+            android:id="@+id/todayTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -28,33 +29,103 @@
             android:layout_height="1dp"
             android:layout_marginHorizontal="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/today"
-            app:layout_constraintTop_toTopOf="@id/today"
-            app:layout_constraintBottom_toBottomOf="@id/today"
+            app:layout_constraintEnd_toStartOf="@id/todayTitle"
+            app:layout_constraintTop_toTopOf="@id/todayTitle"
+            app:layout_constraintBottom_toBottomOf="@id/todayTitle"
             android:background="#6289DE"/>
 
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginHorizontal="10dp"
-            app:layout_constraintStart_toEndOf="@id/today"
+            app:layout_constraintStart_toEndOf="@id/todayTitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/today"
-            app:layout_constraintBottom_toBottomOf="@id/today"
+            app:layout_constraintTop_toTopOf="@id/todayTitle"
+            app:layout_constraintBottom_toBottomOf="@id/todayTitle"
+            android:background="#6289DE"/>
+        //Separator//
+
+        //Separator//
+        <TextView
+            android:id="@+id/dailyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Daily"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/todayListView"
+            android:textColor="#6289DE"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/dailyTitle"
+            app:layout_constraintTop_toTopOf="@id/dailyTitle"
+            app:layout_constraintBottom_toBottomOf="@id/dailyTitle"
             android:background="#6289DE"/>
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintStart_toEndOf="@id/dailyTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/dailyTitle"
+            app:layout_constraintBottom_toBottomOf="@id/dailyTitle"
+            android:background="#6289DE"/>
+        //Separator//
+
+        //Separator//
+        <TextView
+            android:id="@+id/eventTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Event"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dailyTitle"
+            android:textColor="#6289DE"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/eventTitle"
+            app:layout_constraintTop_toTopOf="@id/eventTitle"
+            app:layout_constraintBottom_toBottomOf="@id/eventTitle"
+            android:background="#6289DE"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintStart_toEndOf="@id/eventTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/eventTitle"
+            app:layout_constraintBottom_toBottomOf="@id/eventTitle"
+            android:background="#6289DE"/>
+        //Separator//
+
         <ListView
-            android:id="@+id/dailyListView"
+            android:id="@+id/todayListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/today"
+            app:layout_constraintTop_toBottomOf="@id/todayTitle"
             android:layout_marginHorizontal="10dp"/>
 
         <ExpandableListView
             android:id="@+id/homeDailies"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/dailyListView">
+            app:layout_constraintTop_toBottomOf="@id/dailyTitle"
+            android:groupIndicator="@null">
         </ExpandableListView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -94,8 +94,8 @@ public class Event {
         this.time = time;
     }
 
-    public int isPriority() {
-        return Boolean.compare(priority, false);
+    public boolean isPriority() {
+        return priority;
     }
 
     public void setPriority(boolean priority) {

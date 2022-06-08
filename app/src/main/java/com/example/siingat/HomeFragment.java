@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -109,9 +108,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setTodayAdapter() {
-        ArrayList<Daily> dailyEvents = Daily.dailyForToday();
-        DailyAdapter dailyAdapter = new DailyAdapter(getActivity().getApplicationContext(), dailyEvents);
-        dailyListView.setAdapter(dailyAdapter);
+        ArrayList<Today> dailyEventsToday = Today.dailyEventToday(Daily.dailiesList, Event.eventsList);
+        TodayAdapter todayAdapter = new TodayAdapter(getActivity().getApplicationContext(), dailyEventsToday);
+        dailyListView.setAdapter(todayAdapter);
     }
 
     private void setFutureEventAdapter()
@@ -124,7 +123,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private void setExpandableDailyAdapter() {
         createGroupList();
         createCollection();
-        dailyExpandableListAdapter = new DailyExpandableListAdapter(getActivity().getApplicationContext(), daysList, dailyCollection);
+        dailyExpandableListAdapter = new DailyAdapter(getActivity().getApplicationContext(), daysList, dailyCollection);
         expandableListView.setAdapter(dailyExpandableListAdapter);
     }
 

@@ -38,6 +38,21 @@ public class Event {
                 events.add(event);
         }
 
+        Collections.sort(events, new Comparator<Event>() {
+            @Override
+            public int compare(Event ev1, Event ev2) {
+                return ev1.getTime().compareTo(ev2.getTime());
+            }
+        });
+
+        Collections.sort(events, new Comparator<Event>() {
+
+            @Override
+            public int compare(Event e1, Event e2) {
+                return e1.getDate().compareTo(e2.getDate());
+            }
+        });
+
         return events;
     }
 

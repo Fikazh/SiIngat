@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         setTodayAdapter();
 
         eventListView = view.findViewById(R.id.eventListView);
-        setEventAdapter();
+        setFutureEventAdapter();
 
         expandableListView = view.findViewById(R.id.homeDailies);
         setExpandableDailyAdapter();
@@ -114,11 +114,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         dailyListView.setAdapter(dailyAdapter);
     }
 
-    private void setEventAdapter()
+    private void setFutureEventAdapter()
     {
-        ArrayList<Event> dailyEvents = Event.eventsForLater();
-        EventAdapter eventAdapter = new EventAdapter(getActivity().getApplicationContext(), dailyEvents);
-        eventListView.setAdapter(eventAdapter);
+        ArrayList<Event> futureEvents = Event.eventsForLater();
+        FutureEventAdapter futureEventAdapter = new FutureEventAdapter(getActivity().getApplicationContext(), futureEvents);
+        eventListView.setAdapter(futureEventAdapter);
     }
 
     private void setExpandableDailyAdapter() {

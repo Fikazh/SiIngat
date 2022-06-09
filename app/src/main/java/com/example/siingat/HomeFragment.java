@@ -110,8 +110,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setTodayAdapter() {
-        ArrayList<Today> dailyEventsToday = Today.dailyEventToday(Daily.dailiesList, Event.eventsList);
-        TodayAdapter todayAdapter = new TodayAdapter(getActivity().getApplicationContext(), dailyEventsToday);
+        Today.todayList = Today.dailyEventToday(Daily.dailiesList, Event.eventsList);
+        TodayAdapter todayAdapter = new TodayAdapter(getActivity().getApplicationContext(), Today.todayList);
         dailyListView.setAdapter(todayAdapter);
     }
 

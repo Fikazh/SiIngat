@@ -25,7 +25,7 @@ public class Today {
 
             String today = date.format(DateTimeFormatter.ofPattern("EEEE"));
 
-            if (daily.getDay().equals(today)){
+            if (daily.getDay().equals(today)) {
                 if (daily.getTime().isAfter(time)) {
                     dailyEvents.add(dailyToday);
                 }
@@ -34,8 +34,10 @@ public class Today {
 
         for (Event event : eventsList) {
             Today eventToday = new Today(event.getName(), event.getDate(), event.getTime(), event.isPriority());
-            if(eventToday.getDate().equals(date)) {
-                dailyEvents.add(eventToday);
+            if (event.getDate().equals(date)) {
+                if (event.getTime().isAfter(time)) {
+                    dailyEvents.add(eventToday);
+                }
             }
         }
 
@@ -45,6 +47,9 @@ public class Today {
                 return td1.getTime().compareTo(td2.getTime());
             }
         });
+        for (int i = 0; i < dailyEvents.size(); i++){
+            todayList.add(dailyEvents.get(i));
+        }
 
         return dailyEvents;
     }

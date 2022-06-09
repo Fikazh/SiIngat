@@ -1,5 +1,9 @@
 package com.example.siingat;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -8,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -18,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
@@ -84,7 +90,7 @@ public class cobaLogin extends AppCompatActivity implements View.OnClickListener
     protected int REQ_ONE_TAP_GENERAL;
 
     private SignInButton signInButton;
-    private Button btnLog;
+    private Button btnLog,btnNotif;
     private TextView tvUser;
     private TextView tvUID, tvName, tvGender, tvBirth;
 
@@ -185,6 +191,19 @@ public class cobaLogin extends AppCompatActivity implements View.OnClickListener
 
         tvBirth = findViewById(R.id.tv_Birthh);
         tvBirth.setText(c.getString(c.getColumnIndex("Birth")));
+
+
+        createNotificationChannel();
+
+        btnNotif = findViewById(R.id.btn_notif);
+        btnNotif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+//        runNotification();
     }
 
     @Override
@@ -319,5 +338,34 @@ public class cobaLogin extends AppCompatActivity implements View.OnClickListener
                         }
                     }
                 });
+    }
+
+
+    private void runNotification(){
+        Toast.makeText(getApplicationContext(), "Reminder set", Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(getApplicationContext(), ReminderBroadcast.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        long timeButtonClick = System.currentTimeMillis();
+        long tensecond = 1000 * 10;
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP,
+                timeButtonClick + tensecond,
+                pendingIntent);
+    }
+    private void createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "NotifRiminderChannel";
+            String decription = "Channel for riminder";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notif", name, importance);
+            channel.setDescription(decription);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }

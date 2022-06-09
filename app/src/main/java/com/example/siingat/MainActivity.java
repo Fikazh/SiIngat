@@ -372,7 +372,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void runNotification(){
-
+        createNotificationChannel();
         for (Today today : Today.todayList){
             LocalDateTime localDateTime = LocalDateTime.now().toLocalDate().atTime(today.getTime());
             ZoneId zoneId = ZoneId.systemDefault();
@@ -393,8 +393,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void createNotificationChannel(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence name = "NotifRiminderChannel";
-            String decription = "Channel for riminder";
+            CharSequence name = "Notification Channel";
+            String decription = "Channel for notification";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("today", name, importance);
             channel.setDescription(decription);

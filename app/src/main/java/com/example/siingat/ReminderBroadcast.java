@@ -11,11 +11,11 @@ public class ReminderBroadcast extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String CHANNEL_ID = "today";
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+//        String CHANNEL_ID = "today";
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "today")
                 .setSmallIcon(R.drawable.ic_baseline_access_alarm_24)
                 .setContentTitle("Pengingat Kegiatan Hari Ini")
-                .setContentText("Today.todayList.get().getName()")
+                .setContentText(Today.todayList.get(0).getName())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);

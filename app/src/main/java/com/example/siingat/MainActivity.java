@@ -8,10 +8,15 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -34,7 +39,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoField;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -127,6 +137,9 @@ public class MainActivity extends AppCompatActivity {
         if (Event.eventsList.isEmpty() == true) {
             sqlToArryEvents();
         }
+
+        Today.todayList = Today.dailyEventToday(Daily.dailiesList, Event.eventsList);
+        runNotification();
     }
 
     @Override
@@ -355,6 +368,39 @@ public class MainActivity extends AppCompatActivity {
             Event.eventsList.add(newEvents);
 
             c.moveToNext();
+        }
+    }
+
+    private void runNotification(){
+
+        for (Today today : Today.todayList){
+            LocalDateTime localDateTime = LocalDateTime.now().toLocalDate().atTime(today.getTime());
+            ZoneId zoneId = ZoneId.systemDefault();
+            Instant instant = localDateTime.atZone(zoneId).toInstant();
+            long timeInMillis = instant.toEpochMilli();
+
+            Intent intent = new Intent(getApplicationContext(), ReminderBroadcast.class);
+            final int id = (int) timeInMillis;
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), id, intent, 0);
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP,
+                    timeInMillis,
+                    pendingIntent);
+            Log.d("Alarm Manager","Success adding");
+        }
+    }
+
+    private void createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "NotifRiminderChannel";
+            String decription = "Channel for riminder";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("today", name, importance);
+            channel.setDescription(decription);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 
